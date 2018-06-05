@@ -1,0 +1,168 @@
+.cadre_locataires {
+    text-align: center;
+    margin-top: 10px;
+    padding: 0px 20px 20px 20px;
+    width: 93%;
+    height: 100px;
+    border-radius: 5px;
+    margin-bottom: 10px;
+    color: white;
+    background-color: #F18132;
+    box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.38);
+}
+
+
+
+
+
+$background: #2a2a2a;
+$primary: #70b37d;
+$alternate: #e14e54;
+$width: 200px;
+$height: 100px;
+$gaugewidth: 40px;
+$black: #000;
+$white: #fff;
+$speed: 800ms;
+@import url(https://fonts.googleapis.com/css?family=Ubuntu);
+
+
+.gauge {
+  width: $width;
+  height: $height;
+  position: relative;
+  overflow: hidden;
+}
+
+.inner {
+  width: $width;
+  height: $height;
+  display: block;
+  background-color: #ccc;
+  border-radius: $width $width 0 0;
+  z-index:1;
+  &:after {
+    content: '';
+    width: $width - ($gaugewidth * 2);
+    height: $height - $gaugewidth;
+    top: $gaugewidth;
+    left: $gaugewidth;
+    background-color: rgba(0, 0, 0, 0.075);
+    border-radius: $width $width 0 0;
+    position: absolute;
+    z-index: 3;
+  }
+}
+
+
+.spinner {
+  width: $width;
+  height: $height;
+  background-color: $primary;
+  position: absolute;
+  z-index: 2;
+  transform-origin: top center;
+  transform: rotate(0deg);
+  transition: transform $speed ease;
+  transform: translateZ(0);
+  border-radius: 0 0 $width $width;
+  &.alt {
+    background-color: $alternate;
+  }
+}
+
+.gauge-cont {
+  display: inline-block;
+  position: relative;
+  width: $width;
+  height: $height;
+  margin-left: 33.33333%;
+  &:first-child {
+    margin: 0;
+  }
+}
+.gauge_pourcentage {
+  text-align: center;
+  font-weight: bolder;
+  padding-top: 10px;
+  padding-bottom: 5px;
+  border-bottom-left-radius: 25px;
+  border-bottom-right-radius: 25px;
+  font-size: 23px;
+  border: 2px dashed #777777;
+  color: rgba(0, 0, 0, 0.5);
+  background: #cccccc;
+}
+.spinner_low {
+  width: $width;
+  height: $height;
+  background-color: rgb(222, 0, 0);
+  position: absolute;
+  z-index: 2;
+  transform-origin: top center;
+  transform: rotate(0deg);
+  transition: transform $speed ease;
+  transform: translateZ(0);
+  border-radius: 0 0 $width $width;
+  &.alt {
+    background-color: $alternate;
+  }
+}
+.spinner_medium {
+  width: $width;
+  height: $height;
+  background-color: rgb(254, 131, 0);
+  position: absolute;
+  z-index: 2;
+  transform-origin: top center;
+  transform: rotate(0deg);
+  transition: transform $speed ease;
+  transform: translateZ(0);
+  border-radius: 0 0 $width $width;
+  &.alt {
+    background-color: $alternate;
+  }
+}
+
+.spinner_hight {
+width: $width;
+height: $height;
+background-color: rgb(116, 180, 72);
+position: absolute;
+z-index: 2;
+transform-origin: top center;
+transform: rotate(0deg);
+transition: transform $speed ease;
+transform: translateZ(0);
+border-radius: 0 0 $width $width;
+&.alt {
+  background-color: $alternate;
+}
+}
+
+.pointer {
+  display: block;
+  width: 6px;
+  height: $height + 5;
+  background-color: $white;
+  border-radius: 4px 4px 0 0;
+  position: absolute;
+  z-index: 4;
+  bottom: 0px;
+  left: ($width / 2) - 3;
+  transform: rotate(-90deg);
+  transform-origin: center bottom;
+  transition: transform $speed ease;
+
+}
+
+.pointer-knob {
+  width: 20px;
+  height: 20px;
+  background-color: $white;
+  position: absolute;
+  left: ($width / 2) - 10;
+  bottom: -10px;
+  z-index: 5;
+  border-radius: 20px;
+}

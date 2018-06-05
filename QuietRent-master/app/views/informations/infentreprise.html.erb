@@ -1,0 +1,61 @@
+<div class="container">
+  <div class="row">
+    <div class="col-xs-10 col-xs-offset-1 box">
+
+    <h3 class="text-center add-company">Ajoutez votre entreprise...</h3>
+
+    <h4 class="sous-titre-qr">Identification</h4>
+<hr class="separateur">
+
+
+
+<%= simple_form_for @user do |f| %>
+              <%= f.error_notification %>
+
+                <div class="row">
+                    <div class="col-sm-3 col-sm-offset-1 col-xs-5" style="margin-top: 14px;text-align: right;">Dénomination</div>
+                    <div class="col-sm-4 col-xs-5">
+                        <%= f.input :denomination, label: false, required: true, autofocus: true, input_html: { class: 'siret' }%>
+                    </div>
+                    <div class="hidden-xs col-sm-4" style="margin-top: 9px;text-align: left;">
+                        <i class="fa fa-info-circle" aria-hidden="true"></i>
+                        <span style="margin-left:3px;font-size: 11px;">Dénomination sociale</span>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-3 col-sm-offset-1 col-xs-5" style="margin-top: 14px;text-align: right;">Adresse</div>
+                    <div class="col-sm-4 col-xs-5">
+                        <%= f.input :address, label: false, required: true, autofocus: true, input_html: { class: 'siret places-address' } %>
+                    </div>
+                    <div class="hidden-xs col-sm-4" style="margin-top: 9px;text-align: left;">
+                        <i class="fa fa-info-circle" aria-hidden="true"></i>
+                        <span style="margin-left:3px;font-size: 11px;">Adresse de l'entreprise</span>
+                    </div>
+                </div>
+
+         <div class="form-actions text-center" style="margin:1em auto;">
+                <%= f.button :submit, "Confirmer", class: 'btn btn-success btn-lg valider' %>
+         </div>
+<% end %>
+
+
+
+
+
+</div>
+
+
+
+
+    </div>
+  </div>
+
+<script src="https://cdn.jsdelivr.net/places.js/1.4.7/places.min.js"></script>
+
+<script>
+var placesAutocomplete = places ({
+  container: document.querySelector('.places-address'),
+  language: 'fr', // Receives results in German
+  type: 'address'
+});
+</script>

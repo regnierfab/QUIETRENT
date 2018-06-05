@@ -1,0 +1,56 @@
+<div class="col-xs-3" style="margin-top: 28px;">
+  <div class="cadre_locataires">
+    <button class="btn_search_locataire">
+      Rechercher un locataire<i class="fa fa-search" style="position: absolute;right: 49px;" aria-hidden="true"></i>
+    </button>
+    <div id="form-show">
+      <%= form_tag user_path(current_user), remote: true, method: 'get', class: 'form-search-full', id: 'search-form' do %>
+      <%= text_field_tag :search, params[:search], class: 'text-search-show' %>
+      <%= submit_tag "Chercher", :name => nil, class: 'text-search-btn', id: 'search-profile' %>
+      <% end %>
+
+    </div>
+  </div>
+  <button type="button" class="btn_test_profil flex-show" data-toggle="modal" data-target="#myModal">
+    <span style="width: 100%;white-space: normal;">Tester un profil</span>
+    <i class="fa fa-id-card-o" aria-hidden="true"></i>
+  </button>
+  <%= render 'shared/modal-edp' %>
+  <%= render 'shared/result_modal' %>
+  <%= link_to comparaison_de_profils_path do %>
+  <button type="button" class="btn_maj_sinistre flex-show">
+    <span style="width: 100%;white-space: normal;">Comparaison de profils</span>
+    <i class="fa fa-exchange" aria-hidden="true"></i>
+  </button>
+  <% end %>
+  <button type="button" class="btn_add_locataire flex-show" data-toggle="modal" data-target="#modal-locataire">
+    <span style="width: 100%;white-space: normal;">Ajouter un locataire</span>
+    <i class="fa fa-user-plus" aria-hidden="true"></i>
+  </button>
+  <%= render 'shared/modal_addloc' %>
+  <%= link_to informations_import_locataires_path do %>
+  <button type="button" class="btn-import-donnees flex-show">
+    <span style="width: 100%;white-space: normal;">Importer mes données</span>
+    <i class="fa fa-upload" style="color: white;" aria-hidden="true"></i>
+  </button>
+  <% end %>
+  <%= link_to mise_a_jour_sinistres_path do %>
+  <button type="button" id="maj-loc" class="btn_maj_sinistre flex-show">
+    <span style="width: 100%;white-space: normal;">Ajouter un sinistre</span>
+    <i class="fa fa-check" aria-hidden="true"></i>
+  </button>
+  <% end %>
+  <%= link_to edit_user_registration_path do %>
+  <button type="button" class="btn_modify_profil flex-show">
+    <span style="width: 100%;white-space: normal;">Modifier mon profil</span>
+    <i class="fa fa-pencil" aria-hidden="true"></i>
+  </button>
+  <% end %>
+  <%= link_to koudoku.owner_subscriptions_path(current_user) do %>
+  <button type="button" id="ma-scrpn" class="btn-ma-souscription flex-show">
+    <span style="width: 100%;white-space: normal;">Ma souscription</span>
+    <i class="fa fa-money" aria-hidden="true"></i>
+  </button>
+  <% end %>
+  <div id="results_locataires_show"></div>
+</div>

@@ -1,0 +1,27 @@
+<div id="form-sinistre" class="col-xs-9 hidden">
+  <h2 id="nomsocieter"><%= current_user.denomination %>
+      </h2>
+      <div class="nombres-locs">
+        <span style="font-size: 20px;font-weight: bold;margin-right: 4px;">
+          <%= current_user.locataires.size %>
+        </span>
+        <i class="fa fa-users" style="font-size: 16px;" aria-hidden="true"></i>
+      </div>
+
+
+    <p id="address_dyn"><%= current_user.address%></p>
+    <div class="separateur-user"></div>
+
+    <div class="col-xs-12" style="padding: 0;">
+
+        <div id="formulaire-sinistre" class="col-xs-12 hidden">
+        <div class="sous-titre-user-qr" style="margin-bottom: 1em;text-align: center;">Recherchez vos locataires</div>
+            <%= form_tag user_path(current_user), remote: true, method: 'get', class: 'form-search-loc' do %>
+            <%= text_field_tag :search, params[:search], placeholder: 'Veuillez entrer le prénom, le nom ou la ville de votre locataire', class: 'text-search-loc' %>
+            <%= submit_tag "Chercher", :name => nil, class: 'submit-search-loc' %>
+            <% end %>
+        </div>
+        <div id="locataires" class="hidden"></div>
+        <div id="locataires2" , class="hidden col-xs-6"></div>
+    </div>
+</div>

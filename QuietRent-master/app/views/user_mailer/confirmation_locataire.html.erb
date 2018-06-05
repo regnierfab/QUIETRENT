@@ -1,0 +1,38 @@
+<div style="text-align: center"><img src="https://ci4.googleusercontent.com/proxy/B6j80nC0bmOhZO7MZ5BH8z01Ri0VC_Rupqf9yGGvqkB_psF0rfXUQqmfcBZVDpEj4_cD_iFsgpRWvsrrT11NPDW7gf0_QDgaVfY4DrV8Ljs0oV603wlacecycAO5hOE9=s0-d-e1-ft#http://quietrent.com/fr/test-v4-2/images/logos/logo_quietrent_text_v02.jpg"></div>
+
+
+
+<h2>Proposition de contrat amiable</h2>
+
+<p>Bonjour <%= @locataire.firstname + ' ' + @locataire.lastname %> ,
+<br>
+<br>
+ Cet email est envoyé par le service conciliation de QuietRent.
+<br>
+  Nous vous transmettons, la proposition de votre propriétaire : <b><%= @user.firstname + ' ' + @user.lastname %></b>
+<br>
+Ci-dessus, sa proposition :   Concernant le litige <b><%= @resolution.motif_prejudice %></b>, pour un montant de <b><%= @resolution.montant_prejudice %>.00 Euros</b>, je vous propose une réduction de <b><%= @resolution.montant_reduction %>.00 Euros</b>,  si vous me régler la somme de <b><%= @resolution.montant_prejudice.to_i - @resolution.montant_reduction.to_i %>.00 Euros</b> en <b><%= @resolution.nombre_paiement %></b> fois  sur une période de <b><%= @resolution.paiement_sur %></b> avec un premier paiement le <b><%= I18n.localize(@resolution.paiement_le, format: '%e %B %Y', locale: 'fr') %></b>
+<br>
+<br>
+  Commentaire de votre propriétaire :    <b><%= @resolution.description %></b>
+<br>
+<br>
+Nous vous remercions de bien vouloir considérer cette proposition avec attention d'y répondre au plus vite.
+<br>
+<br>
+ Sans réponse de votre part dans un délai de 2 semaines, nous considérerons que votre réponse est non.
+<br>
+ Nous restons à votre disposition, pour vous apporter toute autre information complémentaire dont vous auriez besoin.
+<br>
+<br>
+ Cordialement 
+<br>
+Le service QuietRent Conciliation   .
+<br>
+<br>
+ *************** Marche à suivre pour donner suite :  ***************
+ <br>
+<b>Après avoir pris connaissance de cette proposition, vous pouvez y répondre en vous connectant sur votre espace locataire.</b>
+<br>
+<b>Si vous n'en avez pas vous recevrez un mail avec vos identifiants de connexion.</b>
+</p>

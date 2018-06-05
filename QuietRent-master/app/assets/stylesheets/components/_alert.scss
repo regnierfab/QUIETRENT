@@ -1,0 +1,45 @@
+/* -------------------------------------
+ * Your CSS code for flash notices and alerts
+* ------------------------------------- */
+
+.alert {
+  margin: 0;
+  text-align: center;
+  color: white;
+}
+.alert-info {
+  background: $green;
+}
+.alert-warning {
+  background: $red;
+}
+
+#flashe-notice {
+  -moz-animation: cssAnimation 0s ease-in 12s forwards;
+  /* Firefox */
+  -webkit-animation: cssAnimation 0s ease-in 12s forwards;
+  /* Safari and Chrome */
+  -o-animation: cssAnimation 0s ease-in 12s forwards;
+  /* Opera */
+  animation: cssAnimation 0s ease-in 12s forwards;
+  -webkit-animation-fill-mode: forwards;
+  animation-fill-mode: forwards;
+}
+
+
+@keyframes cssAnimation {
+  to {
+    width: 0;
+    height: 0;
+    overflow: hidden;
+  }
+}
+
+
+@-webkit-keyframes cssAnimation {
+  to {
+    width: 0;
+    height: 0;
+    visibility: hidden;
+  }
+}

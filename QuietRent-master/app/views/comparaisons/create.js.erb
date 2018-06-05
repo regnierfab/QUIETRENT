@@ -1,0 +1,20 @@
+  var fiabilite_cdp_1 = <%= @comparaison.result_edpf %>
+  var fiabilite_cdp_2 = <%= @comparaison.result_edpl %>
+
+
+  $('#result_cdp_1').html('<span style="vertical-align: sub;">' + fiabilite_cdp_1 + '%</span>').fadeIn( 100 );
+  $('#result_cdp_2').html('<span style="vertical-align: sub;">' + fiabilite_cdp_2 + '%</span>').fadeIn( 100 );
+  $('#result_cdp_1').removeClass('hidden');
+  $('#result_cdp_2').removeClass('hidden');
+
+
+  if (fiabilite_cdp_1 > fiabilite_cdp_2) {
+    $('.arrow-down-left').html('<i class="fa fa-arrow-circle-up" style="font-size: 4.8rem;color: #2ecc71;" aria-hidden="true"></i>').fadeIn( 100 );
+    $('.arrow-down-right').html('<i class="fa fa-arrow-circle-down" style="font-size: 4.8rem;color: #e74c3c;" aria-hidden="true"></i>').fadeIn( 100 );
+  } else if (fiabilite_cdp_1 < fiabilite_cdp_2) {
+    $('.arrow-down-left').html('<i class="fa fa-arrow-circle-down" style="font-size: 4.8rem;color: #e74c3c;" aria-hidden="true"></i>').fadeIn( 100 );
+    $('.arrow-down-right').html('<i class="fa fa-arrow-circle-up" style="font-size: 4.8rem;color: #2ecc71;" aria-hidden="true"></i>').fadeIn( 100 );
+  } else {
+    $('.arrow-down-left').html('<i class="fa fa-exchange" style="font-size: 4.8rem;color: #989898;" aria-hidden="true"></i>').fadeIn( 100 );
+    $('.arrow-down-right').html('<i class="fa fa-exchange" style="font-size: 4.8rem;color: #989898;" aria-hidden="true"></i>').fadeIn( 100 );
+  }

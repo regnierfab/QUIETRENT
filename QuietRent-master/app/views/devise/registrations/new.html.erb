@@ -1,0 +1,44 @@
+<%= simple_form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
+              <%= f.error_notification %>
+              <div class="form-inputs">
+                <h2 class="text-center">Créer un compte</h2>
+                <div class="border-orange-origin"></div>
+                <p class="text-center">Professionnels de l’immobilier : <br> Réduisez gratuitement le risque locatif</p>
+                <div class="col-xs-12">
+                  <%= f.input :profil,
+                   :as => :grouped_select,
+                   :collection => { 'Choisissez...'=> ['Administrateur de biens', 'Agence immobilière', 'Foncière privée', 'Grand compte', 'Autre'] },
+                   :group_method => :last %>
+                </div>
+                <div class="col-xs-6">
+                <label class="control-label">Nom</label>
+                  <%= f.input :lastname, label: false, required: true, autofocus: true %>
+                </div>
+                <div class="col-xs-6">
+                <label class="control-label">Prénom</label>
+                  <%= f.input :firstname, label: false, required: true, autofocus: true %>
+                </div>
+                <div class="col-xs-12">
+                <label class="control-label">Email</label>
+                  <%= f.input :email, label: false, required: true, autofocus: true %>
+                </div>
+                <input type="hidden" name="user[denomination]" id="user_denomination" value="...">
+                <div class="col-xs-12">
+                <label class="control-label">Numéro de téléphone</label>
+                  <%= f.input :number, label: false, :input_html => {:maxlength => 10}, required: true, autofocus: true %>
+                </div>
+                <div class="col-xs-12">
+                <label class="control-label">Mot de passe</label>
+                <%= f.input :password, label: false, required: true, hint: ("#{@minimum_password_length} characters minimum" if @minimum_password_length) %>
+                </div>
+                <div class="col-xs-12">
+                <label class="control-label">Confirmation du mot de passe</label>
+                  <%= f.input :password_confirmation, label: false, required: true %>
+                </div>
+                </div>
+              <div class="form-actions text-center" style="margin:1em auto;">
+                <%= f.button :submit, "S\'inscrire", class: 'button-signup' %>
+              </div>
+            <% end %>
+            <hr>
+            <div class="text-center"><%= render "devise/shared/links" %></div>

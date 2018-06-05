@@ -1,0 +1,66 @@
+<h2 id="nomsocieter"><%= current_user.denomination %>
+    </h2>
+    <div class="nombres-locs"><h2 style="top: -20px;position: relative;"><%= current_user.locataires.size %><i class="fa fa-users" style="font-size: 18px;" aria-hidden="true"></i></h2></div>
+
+
+<p id="address_dyn"><%= current_user.address%></p>
+
+<div class="tabs-qr">
+    <ul class="nav nav-tabs cadre-tabs">
+        <li class="active title-tabs-1">
+            <a data-toggle="tab" href="#identification" style="margin:0;border-top-left-radius: 5px;color:#2D2D2D;">Identification</a>
+        </li>
+        <li class="title-tabs">
+            <a data-toggle="tab" href="#synthese" style="margin:0;border-top-right-radius: 5px;color:#2D2D2D;">Synthèse</a>
+        </li>
+    </ul>
+
+    <div class="tab-content">
+        <div id="identification" class="tab-pane fade in active">
+            <div class="col-xs-12" style="padding: 0;margin-top: 1em;">
+                <div class="col-xs-9" style="padding: 0;">
+                    <div class="sous-titre-user-qr">Informations</div>
+                    <div class="separateur-user"></div>
+                    <ul>
+                        <div class="informations-user">
+                            <span class="label-title-informations-nom">Nom</span>
+                            <li class="input-title-informations"><%=current_user.denomination%></li>
+                        </div>
+                        <div class="informations-user">
+                            <span class="label-title-informations">Adresse</span>
+                            <li class="input-title-informations"><%=current_user.address%></li>
+                        </div>
+                    </ul>
+                </div>
+                <div class="col-sm-3 hidden-xs" style="padding: 0;">
+                    <button class="btn button-modify-user"><%= link_to "Modifier mon profil", edit_user_registration_path, class: 'black-color' %></button>
+                </div>
+            </div>
+        </div>
+        <div id="synthese" class="tab-pane fade">
+            <div class="col-xs-12" style="padding: 0;margin-top: 1em;">
+                <div class="col-xs-9" style="padding: 0;">
+                    <div class="sous-titre-user-qr">Fiabilité locative du parc</div>
+                    <div class="separateur-user"></div>
+                    <ul>
+                        <div class="informations-user">
+                            <span class="label-title-informations-nom">Fiabilité</span>
+                            <li class="input-title-informations"><%=current_user.fiabilite_parc %></li>
+                        </div>
+                    </ul>
+                    <div class="sous-titre-user-qr">Evolution de la sinistralité</div>
+                    <div class="separateur-user"></div>
+                    <ul>
+                        <div class="informations-user">
+                            <span class="label-title-informations-nom">Sinistralité</span>
+                            <li class="input-title-informations"><%=current_user.sinistralite_parc %></li>
+                        </div>
+                    </ul>
+                </div>
+                <div class="col-sm-3 hidden-xs" style="padding: 0;">
+                    <button type="button" class="btn button-modify-user">Mise à jour locataires</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

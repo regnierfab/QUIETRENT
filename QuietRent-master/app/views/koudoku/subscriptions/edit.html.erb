@@ -1,0 +1,16 @@
+<% if params['update'] == 'card' %>
+
+  <% if @subscription.plan != nil %>
+    <div class="my-subscription">
+      <%= link_to 'Ma soubscription ➡️', owner_subscriptions_path(@owner), class:'btn lmy-subscription' %>
+    </div>
+   <% end %>
+   <%= render 'card', title: "Changer méthode de paiement", url: owner_subscription_path(@owner, @subscription) %>
+<% else %>
+   <% if @subscription.plan != nil %>
+    <div class="my-subscription">
+      <%= link_to 'Ma soubscription ➡️', owner_subscriptions_path(@owner), class:'btn lmy-subscription' %>
+    </div>
+   <% end %>
+     <%= render 'pricing_table' %>
+<% end %>

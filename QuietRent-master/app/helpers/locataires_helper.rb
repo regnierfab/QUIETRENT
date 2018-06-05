@@ -1,0 +1,2 @@
+module LocatairesHelper
+end

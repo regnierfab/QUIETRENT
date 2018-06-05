@@ -1,0 +1,79 @@
+<div class="modal fade" id="modal-locataire" tabindex="-1" role="dialog" aria-labelledby="modal-locataireLabel">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content hauteur-addloc">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+            <div id="button_close_modal"></div>
+            <h3 class="text-center">Ajouter un locataire</h3>
+            <div class="border-orange"></div>
+            <%= simple_form_for @locataire do |f| %>
+            <%= f.error_notification %>
+            <div class="col-xs-12 text-center" style="margin-top: 1em;padding: 0;">
+                <div class="row">
+                    <div class="categorie-edp">
+                        <%= f.input :firstname, label: false, :placeholder => "Prénom  (*)", required: true, autofocus: true, input_html: { class: 'input-addloc' }%>
+                    </div>
+                    <div class="categorie-edp">
+                        <%= f.input :lastname, label: false, :placeholder => "Nom  (*)", required: true, autofocus: true, input_html: { class: 'input-addloc' }%>
+                    </div>
+                </div>
+                <div class="row" style="margin-right: -20px;">
+                    <div class="categorie-edp">
+                        <%= f.input :street, label: false, :placeholder => "Rue  (*)", required: true, autofocus: true, input_html: { class: 'input-addloc' }%>
+                    </div>
+                    <div class="categorie-edp">
+                        <%= f.input :zip_code, label: false, :placeholder => "Code postal  (*)", required: true, autofocus: true, input_html: { class: 'input-addloc' }%>
+                    </div>
+                    <div class="categorie-edp">
+                        <%= f.input :city, label: false, :placeholder => "Ville  (*)", required: true, autofocus: true, input_html: { class: 'input-addloc places-city' }%>
+                    </div>
+                    <div class="categorie-edp">
+                        <%= f.input :montant_loyer, label: false, :placeholder => "Montant du loyer  (*)", required: true, autofocus: true, input_html: { class: 'input-addloc' }%>
+                        <span class="input-group-addon euro-loc-input">€</span>
+                    </div>
+                    <div class="categorie-edp">
+                        <%= f.input :revenus, label: false, :placeholder => "Revenus  (*)", required: true, autofocus: true, input_html: { class: 'input-addloc' }%>
+                        <span class="input-group-addon euro-revenus-input">€</span>
+                    </div>
+                    <div class="categorie-edp">
+                        <%= f.input :situation_pro, :as => :grouped_select, :collection => { 'Choisissez...'=> ['CDI', 'CDD de plus de 8 mois', 'Retraité', 'Sans emploi', 'Indépendant (professions libérales, auto-entrepreneur, etc...)', 'Contrat précaire (étudiant, saisonnier, interim, mi-temps, etc...)'] }, :group_method => :last, label: false, :prompt => "Contrat de travail (*)", required: true, autofocus: true, input_html: { class: 'input-addloc' }%>
+                    </div>
+                    <div class="categorie-edp">
+                        <%= f.input :situation_fam, :as => :grouped_select, :collection => { 'Choisissez...'=> ['Seul', 'Couple sans enfant', 'Couple avec enfant', 'Famille monoparentale'] }, :group_method => :last, label: false, :prompt =>
+                        "Situation familiale (*)", required: true, autofocus: true, input_html: { class: 'input-addloc' }%>
+                    </div>
+                    <div class="categorie-edp">
+                        <%= f.input :age_birth, label: false, :placeholder => "Année de naissance  (*)", required: true, autofocus: true, input_html: { class: 'input-addloc' }%>
+                    </div>
+                     <div class="categorie-edp">
+                        <%= f.input :email, label: false, :placeholder => "Email  (*)", autofocus: true, input_html: { class: 'input-addloc' }%>
+                    </div>
+                </div>
+                <div class="row" style="margin-right: -20px;">
+                    <div class="col-xs-12">
+                        <%= f.button :submit, "Confirmer", class: 'btn btn-success btn-lg valider' %>
+                    </div>
+                </div>
+            </div>
+            <%end %>
+            <hr>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/places.js/1.4.7/places.min.js"></script>
+
+<script>
+var placesAutocomplete = places ({
+  container: document.querySelector('.places-city'),
+  language: 'fr', // Receives results in German
+  type: 'city',
+  countries: ['fr'],
+  templates: {
+      value: function(suggestion) {
+        return suggestion.name;
+      }
+    }
+});
+</script>

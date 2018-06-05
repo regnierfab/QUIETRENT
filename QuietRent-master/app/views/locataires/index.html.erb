@@ -1,0 +1,49 @@
+<div class="container">
+    <%= render 'shared/menu_tasks' %>
+  <div style="overflow-x: auto;">
+    <h3 id="nomsocieter" class="text-center indications-nombres"><span class="nombres-indications"><%= current_user.locataires.size %></span> locataires</h3>
+
+    <div class="well">
+    <%= form_for_filterrific @filterrific, remote: true do |f| %>
+    <div class="row">
+      <div class="col-xs-4">
+        <label class="control-label">Rechercher par : </label>
+        <%# give the search field the 'filterrific-periodically-observed' class for live updates %>
+        <%= f.text_field :search_query, placeholder: "Nom ou Prénom", class: 'filterrific-periodically-observed' %>
+      </div>
+      <div class="col-xs-4">
+        <label class="control-label">Rechercher par : </label>
+        <%# give the search field the 'filterrific-periodically-observed' class for live updates %>
+        <%= f.text_field :global_search, placeholder: "Ville ou Code Postal", class: 'filterrific-periodically-observed' %>
+      </div>
+      <div class="col-xs-4">
+        <label class="control-label">Trié par : </label>
+        <%= f.select(:sorted_by, @filterrific.select_options[:sorted_by]) %>
+      </div>
+    </div>
+      <%# add an automated spinner to your form when the list is refreshed %>
+      <div class="text-center">
+      <%= render_filterrific_spinner %>
+      </div>
+    <% end %>
+    </div>
+    <div class="inside-filters">
+      <%= link_to('Effacer filtres',reset_filterrific_url,class: 'delete-filters') %>
+    </div>
+    <%= render(
+      partial: 'locataires/list',
+      locals: { locataires: @locataires }
+    ) %>
+  </div>
+</div>
+
+
+
+
+<% content_for(:after_js) do %>
+<script type="text/javascript">
+    $(document).ready(function () {
+      $('#locataires_index').addClass('base_locentre')
+    });
+</script>
+<% end %>

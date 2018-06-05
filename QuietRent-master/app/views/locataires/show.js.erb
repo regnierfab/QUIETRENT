@@ -1,0 +1,15 @@
+$('#locataires_index').addClass('base_locentre')
+$("#locataires2").html("<%= j render 'shared/name_filtered', result: @result %>");
+$("#locataires2").removeClass("hidden");
+$('.datepicker').datepicker({format: "dd/mm/yyyy",minViewMode: 1,language: "fr",autoclose: true,todayHighlight: true,startDate: '-2y',endDate: '+1y'});
+$.fn.datepicker.defaults.language = 'fr';
+$('.results-loc-show').click(function(){
+  $('#form-sinistre').addClass('hidden');
+  $('#interface_pro').removeClass('hidden');
+});
+
+$('#formulaire-sinistre > form > input[type="submit"]').click(function(){
+    $("#locataires2").show();
+    $("#locataires2").removeClass('col-xs-12');
+    $("#locataires2").addClass('col-xs-5');
+});

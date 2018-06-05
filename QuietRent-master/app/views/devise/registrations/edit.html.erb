@@ -1,0 +1,81 @@
+<div class="col-xs-12 col-md-4 col-md-offset-4">
+<%= simple_form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
+  <%= f.error_notification %>
+
+  <div class="form-inputs">
+    <h2 class="text-center">Editer mon compte</h2>
+    <div class="border-orange-origin"></div>
+    <p class="text-center">Modifier vos informations personnelles</p>
+    <div class="col-xs-12">
+      <%= f.input :profil,
+       :as => :grouped_select,
+       :collection => { 'Choisissez...'=> ['Administrateur de biens', 'Agence immobilière', 'Foncière privée', 'Grand compte', 'Autre'] },
+       :group_method => :last %>
+    </div>
+    <div class="col-xs-6">
+    <label class="control-label">Nom</label>
+      <%= f.input :lastname, label: false, required: true, autofocus: true %>
+    </div>
+    <div class="col-xs-6">
+    <label class="control-label">Prénom</label>
+      <%= f.input :firstname, label: false, required: true, autofocus: true %>
+    </div>
+    <div class="col-xs-12">
+    <label class="control-label">Email</label>
+      <%= f.input :email, label: false, required: true, autofocus: true %>
+    </div>
+    <div class="col-xs-12">
+    <label class="control-label">Numéro de téléphone</label>
+      <%= f.input :number, label: false, :input_html => {:maxlength => 10}, required: true, autofocus: true %>
+    </div>
+    <div class="col-xs-12">
+    <label class="control-label">Dénomination</label>
+    <%= f.input :denomination, label: false, required: true, autofocus: true %>
+    </div>
+    <div class="col-xs-12">
+    <label class="control-label">Adresse de la société</label>
+    <%= f.input :address, label: false, required: true, autofocus: true, input_html: { class: 'places-address' } %>
+    </div>
+
+    <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
+      <p>Currently waiting confirmation for: <%= resource.unconfirmed_email %></p>
+    <% end %>
+
+    <div class="col-xs-12">
+    <label class="control-label">Mot de passe</label>
+    <%= f.input :password, label: false, autocomplete: "off", hint: "Laisser vide si vous ne voulez pas le changer", required: false %>
+    </div>
+    <div class="col-xs-12">
+    <label class="control-label">Confirmation du mot de passe</label>
+    <%= f.input :password_confirmation, label: false, required: false %>
+    </div>
+    <div class="col-xs-12">
+    <label class="control-label">Mot de passe actuel</label>
+    <%= f.input :current_password, label: false, hint: "Nous avons besoin de votre mot de passe actuel pour confirmer vos modifications", required: true %>
+    </div>
+
+  </div>
+
+  <div class="form-actions text-center" style="margin:1em auto;">
+    <%= f.button :submit, "Mettre à jour", class: 'button-signup' %>
+  </div>
+  <div class="text-center">
+    <%= link_to "Retour", user_path(current_user), class: 'link_retour btn btn-default' %>
+  </div>
+
+<% end %>
+</div>
+
+
+
+
+<script src="https://cdn.jsdelivr.net/places.js/1.4.7/places.min.js"></script>
+
+<script>
+var placesAutocomplete = places ({
+  container: document.querySelector('.places-address'),
+  language: 'fr',
+  countries: ['fr'],
+  type: 'address'
+});
+</script>

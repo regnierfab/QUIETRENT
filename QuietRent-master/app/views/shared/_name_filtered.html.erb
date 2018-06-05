@@ -1,0 +1,19 @@
+  <% a =  current_user.locataires.find(params[:id]) %>
+  <div style="text-align: center;"><span style="white-space: nowrap;color: #333341;border-bottom: 3px solid #F18132;padding: 5px;">Voulez-vous déclarer un sinistre pour <b><%= a.firstname %> <%= a.lastname %></b> ?</span></div>
+<div class="full-form col-xs-12">
+  <div class="form-maj-loc col-xs-12">
+    <%= simple_form_for [@locataire, @sinistre], remote: true do |f| %>
+    <%= f.error_notification %>
+    <input type="hidden" value="<%= a %>" placeholder="<%= " #{a.firstname} #{a.lastname}" %>">
+    <p>Quelle type de sinitre ?</p>
+    <%= f.input :category, :as => :grouped_select, :collection => { 'Choisissez...'=> ['Impayé', 'Retard de paiement', 'Paiement partiel'] }, :group_method => :last, label: false, :prompt => "Categorie", required: true, autofocus: true, input_html: {class: '' }%>
+    <p>À quelle date a t'il débuté ?</p>
+    <%= f.input :start_date, as: :string, input_html: {class: 'form-control datepicker' }, placeholder: '4 mars 2017', label: false %>
+    <p>Voulez vous décrire ce sinistre ?</p>
+    <%= f.input :description, autofocus: true, label: false, placeholder: 'Description (facultatif)' %>
+    <div class="text-center">
+      <%= f.submit 'Créer un sinistre', class: 'submit-crer-sin' %>
+    </div>
+    <% end %>
+  </div>
+</div>

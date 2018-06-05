@@ -1,0 +1,19 @@
+<div style="text-align: center"><img src="https://ci4.googleusercontent.com/proxy/B6j80nC0bmOhZO7MZ5BH8z01Ri0VC_Rupqf9yGGvqkB_psF0rfXUQqmfcBZVDpEj4_cD_iFsgpRWvsrrT11NPDW7gf0_QDgaVfY4DrV8Ljs0oV603wlacecycAO5hOE9=s0-d-e1-ft#http://quietrent.com/fr/test-v4-2/images/logos/logo_quietrent_text_v02.jpg"></div>
+
+
+
+<h1 style="font-weight: 300; font-family: sans-serif;">Création de votre espace QuietRent !</h1>
+<span style="font-weight: 300; font-family: sans-serif;">Bonjour <%= @user.firstname.capitalize %> <%= @user.lastname.capitalize %>,</span><br>
+<br>
+<span style="font-weight: 300; font-family: sans-serif;">Toute l’équipe QuietRent vous souhaite la bienvenue.</span><br>
+
+<span style="font-weight: 300; font-family: sans-serif;">Vous trouverez ci-dessous les identifiants de connexion vous permettant d’accéder à votre espace propriétaire.</span><br>
+<br>
+<span><span><strong>Email :</strong></span> <%= @user.email.capitalize %></span><br>
+<span><span><strong>Password :</strong><%= @user.password %></span><br>
+<span><span><strong>ID (For API) : </strong><%= @user.id %></span><br>
+
+<br>
+<span style="font-weight: 300; font-family: sans-serif;">Nous vous remercions et restons à votre disposition en cas de besoin.</span><br>
+<br>
+<span style="font-weight: 300; font-family: sans-serif;">L’équipe administration QuietRent</span>

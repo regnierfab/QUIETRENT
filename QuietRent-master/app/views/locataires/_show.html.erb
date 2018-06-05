@@ -1,0 +1,730 @@
+<div style="display: flex;justify-content: space-between;align-items: baseline;">
+    <h2 id="nomsocieter"><%= @locataire.firstname %>
+        <%= @locataire.lastname %></h2>
+    <span>
+        <% unless @locataire.fiabilite_pers.nil? %>
+        <% if @locataire.fiabilite_pers >= 80 %>
+        <div class="fiabilite_pers greenf cercle-fab">
+            <% elsif @locataire.fiabilite_pers < 80 && @locataire.fiabilite_pers > 50 %>
+            <div class="fiabilite_pers yellowf cercle-fab">
+            <% else %>
+                <div class="fiabilite_pers redf cercle-fab">
+                    <% end %>
+                    <%= @locataire.fiabilite_pers %>%</span>
+            </div>
+            <% end %>
+        </div>
+
+        <p><%= @locataire.street %>,
+            <%= @locataire.zip_code %>
+            <%= @locataire.city %></p>
+
+        <div class="tabs-qr">
+            <ul class="nav nav-tabs cadre-tabs">
+                <li class="active title-tabs-1">
+                    <a data-toggle="tab" href="#identification_loc" style="margin:0;border-top-left-radius: 5px;color:#2D2D2D;">Identification</a>
+                </li>
+                <li class="title-tabs">
+                    <a data-toggle="tab" href="#synthese_loc" style="margin:0;border-top-right-radius: 5px;color:#2D2D2D;">Synthèse</a>
+                </li>
+            </ul>
+
+            <div class="tab-content">
+                <div id="identification_loc" class="tab-pane fade in active">
+                    <div class="col-xs-12" style="padding: 0;margin-top: 1em;">
+                        <div class="col-xs-9" style="padding: 0;">
+                            <div class="sous-titre-user-qr">Adresse du logement</div>
+                            <div class="separateur-user"></div>
+                            <ul>
+                                <div class="informations-user">
+                                    <span style="margin-right: 124px;" class="label-title-informations">Adresse</span>
+                                    <li class="input-title-informations"><%= @locataire.street %>,
+                                        <%= @locataire.zip_code %>
+                                        <%= @locataire.city %></li>
+                                </div>
+                                <li></li>
+                                <li></li>
+                            </ul>
+                            <div class="sous-titre-user-qr">Loyer</div>
+                            <div class="separateur-user"></div>
+                            <ul>
+                                <div class="informations-user">
+                                    <span style="margin-right: 58px;" class="label-title-informations">Montant du loyer</span>
+                                    <li class="input-title-informations"><%= @locataire.montant_loyer %>
+                                        €</li>
+                                </div>
+                            </ul>
+                            <div class="sous-titre-user-qr">Autres Informations</div>
+                            <div class="separateur-user"></div>
+                            <ul>
+                                <div class="informations-user">
+                                    <span style="margin-right: 126px;" class="label-title-informations">Revenus</span>
+                                    <li class="input-title-informations"><%= @locataire.revenus %>
+                                        €</li>
+                                </div>
+                                <div class="informations-user">
+                                    <span class="label-title-informations">Situation Profesionnelle</span>
+                                    <li class="input-title-informations"><%= @locataire.situation_pro %></li>
+                                </div>
+                                <div class="informations-user">
+                                    <span style="margin-right: 56px;" class="label-title-informations">Situation Familiale</span>
+                                    <li class="input-title-informations"><%= @locataire.situation_fam %></li>
+                                </div>
+                                <div class="informations-user">
+                                    <span style="margin-right: 45px;" class="label-title-informations">Année de naissance</span>
+                                    <li class="input-title-informations"><%= @locataire.age_birth %></li>
+                                </div>
+                            </ul>
+                        </div>
+                        <div class="col-sm-3 hidden-xs" style="padding: 0;">
+                            <button class="btn button-modify-user"><%= link_to "Modifier", edit_locataire_path, class: 'black-color' %></button>
+                        </div>
+                    </div>
+                </div>
+                <div id="synthese_loc" class="tab-pane fade">
+                    <div class="col-xs-12" style="padding: 0;margin-top: 1em;">
+                        <div class="col-xs-12" style="padding: 0;">
+                            <div class="sous-titre-user-qr">Fiabilité locative</div>
+                            <div class="separateur-user"></div>
+                            <div class="gauge-cont" data-percentage="<%= @locataire.fiabilite_pers %>">
+                                <div class="gauge">
+                                    <div class="inner"></div>
+                                    <% if @locataire.fiabilite_pers > 80 %>
+                                    <div class="spinner_hight"></div>
+                                    <% elsif @locataire.fiabilite_pers < 50 %>
+                                    <div class="spinner_low"></div>
+                                <% else %>
+                                    <div class="spinner_medium"></div>
+                                    <% end %>
+                                </div>
+                                <div class="pointer"></div>
+                                <div class="pointer-knob"></div>
+                                <div class="gauge_pourcentage"><%= @locataire.fiabilite_pers %>%</div>
+                            </div>
+                            <div class="sous-titre-user-qr">Historique locatif</div>
+                            <div class="separateur-user"></div>
+
+                            <table class="table table-bordered" bgcolor="#fff">
+                                <thead bgcolor="#eee" style="color: #808080">
+                                    <tr>
+                                        <th></th>
+                                        <th>Jan</th>
+                                        <th>Fev</th>
+                                        <th>Mar</th>
+                                        <th>Avr</th>
+                                        <th>Mai</th>
+                                        <th>Jui</th>
+                                        <th>Juil</th>
+                                        <th>Aout</th>
+                                        <th>Sep</th>
+                                        <th>Oct</th>
+                                        <th>Nov</th>
+                                        <th>Dec</th>
+                                    </tr>
+                                </thead>
+                                <tr>
+                                  <th>2015</th>
+                                    <% if @locataire.sinistres.by_year_and_month(2015, 1).empty? %>
+                                      <td style="background-color: #2ecc71"></td>
+                                    <% end %>
+                                  <% @locataire.sinistres.by_year_and_month(2015, 1).each do |sinistre| %>
+                                    <% if sinistre.category == "Impayé" %>
+                                      <td style="background-color:#CE2E40"></td>
+                                    <% elsif sinistre.category == "Retard de paiement" %>
+                                      <td style="background-color:#F5A623"></td>
+                                    <% elsif sinistre.category == "Paiement partiel" %>
+                                      <td style="background-color:#14979C"></td>
+                                    <% end %>
+                                  <% end %>
+                                  <% if @locataire.sinistres.by_year_and_month(2015, 2).empty? %>
+                                    <td style="background-color: #2ecc71"></td>
+                                  <% end %>
+                                  <% @locataire.sinistres.by_year_and_month(2015, 2).each do |sinistre| %>
+                                    <% if sinistre.category == "Impayé" %>
+                                      <td style="background-color:#CE2E40"></td>
+                                    <% elsif sinistre.category == "Retard de paiement" %>
+                                      <td style="background-color:#F5A623"></td>
+                                    <% elsif sinistre.category == "Paiement partiel" %>
+                                      <td style="background-color:#14979C"></td>
+                                    <% end %>
+                                  <% end %>
+                                  <% if @locataire.sinistres.by_year_and_month(2015, 3).empty? %>
+                                    <td style="background-color: #2ecc71"></td>
+                                  <% end %>
+                                  <% @locataire.sinistres.by_year_and_month(2015, 3).each do |sinistre| %>
+                                    <% if sinistre.category == "Impayé" %>
+                                      <td style="background-color:#CE2E40"></td>
+                                    <% elsif sinistre.category == "Retard de paiement" %>
+                                      <td style="background-color:#F5A623"></td>
+                                    <% elsif sinistre.category == "Paiement partiel" %>
+                                      <td style="background-color:#14979C"></td>
+                                    <% end %>
+                                  <% end %>
+                                  <% if @locataire.sinistres.by_year_and_month(2015, 4).empty? %>
+                                    <td style="background-color: #2ecc71"></td>
+                                  <% end %>
+                                  <% @locataire.sinistres.by_year_and_month(2015, 4).each do |sinistre| %>
+                                    <% if sinistre.category == "Impayé" %>
+                                      <td style="background-color:#CE2E40"></td>
+                                    <% elsif sinistre.category == "Retard de paiement" %>
+                                      <td style="background-color:#F5A623"></td>
+                                    <% elsif sinistre.category == "Paiement partiel" %>
+                                      <td style="background-color:#14979C"></td>
+                                    <% end %>
+                                  <% end %>
+                                  <% if @locataire.sinistres.by_year_and_month(2015, 5).empty? %>
+                                    <td style="background-color: #2ecc71"></td>
+                                  <% end %>
+                                  <% @locataire.sinistres.by_year_and_month(2015, 5).each do |sinistre| %>
+                                    <% if sinistre.category == "Impayé" %>
+                                      <td style="background-color:#CE2E40"></td>
+                                    <% elsif sinistre.category == "Retard de paiement" %>
+                                      <td style="background-color:#F5A623"></td>
+                                    <% elsif sinistre.category == "Paiement partiel" %>
+                                      <td style="background-color:#14979C"></td>
+                                    <% end %>
+                                  <% end %>
+                                  <% if @locataire.sinistres.by_year_and_month(2015, 6).empty? %>
+                                    <td style="background-color: #2ecc71"></td>
+                                  <% end %>
+                                  <% @locataire.sinistres.by_year_and_month(2015, 6).each do |sinistre| %>
+                                    <% if sinistre.category == "Impayé" %>
+                                      <td style="background-color:#CE2E40"></td>
+                                    <% elsif sinistre.category == "Retard de paiement" %>
+                                      <td style="background-color:#F5A623"></td>
+                                    <% elsif sinistre.category == "Paiement partiel" %>
+                                      <td style="background-color:#14979C"></td>
+                                    <% end %>
+                                  <% end %>
+                                  <% if @locataire.sinistres.by_year_and_month(2015, 7).empty? %>
+                                    <td style="background-color: #2ecc71"></td>
+                                  <% end %>
+                                  <% @locataire.sinistres.by_year_and_month(2015, 7).each do |sinistre| %>
+                                    <% if sinistre.category == "Impayé" %>
+                                      <td style="background-color:#CE2E40"></td>
+                                    <% elsif sinistre.category == "Retard de paiement" %>
+                                      <td style="background-color:#F5A623"></td>
+                                    <% elsif sinistre.category == "Paiement partiel" %>
+                                      <td style="background-color:#14979C"></td>
+                                    <% end %>
+                                  <% end %>
+                                  <% if @locataire.sinistres.by_year_and_month(2015, 8).empty? %>
+                                    <td style="background-color: #2ecc71"></td>
+                                  <% end %>
+                                  <% @locataire.sinistres.by_year_and_month(2015, 8).each do |sinistre| %>
+                                    <% if sinistre.category == "Impayé" %>
+                                      <td style="background-color:#CE2E40"></td>
+                                    <% elsif sinistre.category == "Retard de paiement" %>
+                                      <td style="background-color:#F5A623"></td>
+                                    <% elsif sinistre.category == "Paiement partiel" %>
+                                      <td style="background-color:#14979C"></td>
+                                    <% end %>
+                                  <% end %>
+                                  <% if @locataire.sinistres.by_year_and_month(2015, 9).empty? %>
+                                    <td style="background-color: #2ecc71"></td>
+                                  <% end %>
+                                  <% @locataire.sinistres.by_year_and_month(2015, 9).each do |sinistre| %>
+                                    <% if sinistre.category == "Impayé" %>
+                                      <td style="background-color:#CE2E40"></td>
+                                    <% elsif sinistre.category == "Retard de paiement" %>
+                                      <td style="background-color:#F5A623"></td>
+                                    <% elsif sinistre.category == "Paiement partiel" %>
+                                      <td style="background-color:#14979C"></td>
+                                    <% end %>
+                                  <% end %>
+                                  <% if @locataire.sinistres.by_year_and_month(2015, 10).empty? %>
+                                    <td style="background-color: #2ecc71"></td>
+                                  <% end %>
+                                  <% @locataire.sinistres.by_year_and_month(2015, 10).each do |sinistre| %>
+                                    <% if sinistre.category == "Impayé" %>
+                                      <td style="background-color:#CE2E40"></td>
+                                    <% elsif sinistre.category == "Retard de paiement" %>
+                                      <td style="background-color:#F5A623"></td>
+                                    <% elsif sinistre.category == "Paiement partiel" %>
+                                      <td style="background-color:#14979C"></td>
+                                    <% end %>
+                                  <% end %>
+                                  <% if @locataire.sinistres.by_year_and_month(2015, 11).empty? %>
+                                    <td style="background-color: #2ecc71"></td>
+                                  <% end %>
+                                  <% @locataire.sinistres.by_year_and_month(2015, 11).each do |sinistre| %>
+                                    <% if sinistre.category == "Impayé" %>
+                                      <td style="background-color:#CE2E40"></td>
+                                    <% elsif sinistre.category == "Retard de paiement" %>
+                                      <td style="background-color:#F5A623"></td>
+                                    <% elsif sinistre.category == "Paiement partiel" %>
+                                      <td style="background-color:#14979C"></td>
+                                    <% end %>
+                                  <% end %>
+                                  <% if @locataire.sinistres.by_year_and_month(2015, 12).empty? %>
+                                    <td style="background-color: #2ecc71"></td>
+                                  <% end %>
+                                  <% @locataire.sinistres.by_year_and_month(2015, 12).each do |sinistre| %>
+                                    <% if sinistre.category == "Impayé" %>
+                                      <td style="background-color:#CE2E40"></td>
+                                    <% elsif sinistre.category == "Retard de paiement" %>
+                                      <td style="background-color:#F5A623"></td>
+                                    <% elsif sinistre.category == "Paiement partiel" %>
+                                      <td style="background-color:#14979C"></td>
+                                    <% end %>
+                                  <% end %>
+                                </tr>
+
+                                <tr>
+                                    <th>2016</th>
+                                      <% if @locataire.sinistres.by_year_and_month(2016, 1).empty? %>
+                                        <td style="background-color: #2ecc71"></td>
+                                      <% end %>
+                                      <% @locataire.sinistres.by_year_and_month(2016, 1).each do |sinistre| %>
+                                        <% if sinistre.category == "Impayé" %>
+                                          <td style="background-color:#CE2E40"></td>
+                                        <% elsif sinistre.category == "Retard de paiement" %>
+                                          <td style="background-color:#F5A623"></td>
+                                        <% elsif sinistre.category == "Paiement partiel" %>
+                                          <td style="background-color:#14979C"></td>
+                                        <% end %>
+                                      <% end %>
+                                      <% if @locataire.sinistres.by_year_and_month(2016, 2).empty? %>
+                                        <td style="background-color: #2ecc71"></td>
+                                      <% end %>
+                                      <% @locataire.sinistres.by_year_and_month(2016, 2).each do |sinistre| %>
+                                        <% if sinistre.category == "Impayé" %>
+                                          <td style="background-color:#CE2E40"></td>
+                                        <% elsif sinistre.category == "Retard de paiement" %>
+                                          <td style="background-color:#F5A623"></td>
+                                        <% elsif sinistre.category == "Paiement partiel" %>
+                                          <td style="background-color:#14979C"></td>
+                                        <% end %>
+                                      <% end %>
+                                      <% if @locataire.sinistres.by_year_and_month(2016, 3).empty? %>
+                                        <td style="background-color: #2ecc71"></td>
+                                      <% end %>
+                                      <% @locataire.sinistres.by_year_and_month(2016, 3).each do |sinistre| %>
+                                        <% if sinistre.category == "Impayé" %>
+                                          <td style="background-color:#CE2E40"></td>
+                                        <% elsif sinistre.category == "Retard de paiement" %>
+                                          <td style="background-color:#F5A623"></td>
+                                        <% elsif sinistre.category == "Paiement partiel" %>
+                                          <td style="background-color:#14979C"></td>
+                                        <% end %>
+                                      <% end %>
+                                      <% if @locataire.sinistres.by_year_and_month(2016, 4).empty? %>
+                                        <td style="background-color: #2ecc71"></td>
+                                      <% end %>
+                                      <% @locataire.sinistres.by_year_and_month(2016, 4).each do |sinistre| %>
+                                        <% if sinistre.category == "Impayé" %>
+                                          <td style="background-color:#CE2E40"></td>
+                                        <% elsif sinistre.category == "Retard de paiement" %>
+                                          <td style="background-color:#F5A623"></td>
+                                        <% elsif sinistre.category == "Paiement partiel" %>
+                                          <td style="background-color:#14979C"></td>
+                                        <% end %>
+                                      <% end %>
+                                      <% if @locataire.sinistres.by_year_and_month(2016, 5).empty? %>
+                                        <td style="background-color: #2ecc71"></td>
+                                      <% end %>
+                                      <% @locataire.sinistres.by_year_and_month(2016, 5).each do |sinistre| %>
+                                        <% if sinistre.category == "Impayé" %>
+                                          <td style="background-color:#CE2E40"></td>
+                                        <% elsif sinistre.category == "Retard de paiement" %>
+                                          <td style="background-color:#F5A623"></td>
+                                        <% elsif sinistre.category == "Paiement partiel" %>
+                                          <td style="background-color:#14979C"></td>
+                                        <% end %>
+                                      <% end %>
+                                      <% if @locataire.sinistres.by_year_and_month(2016, 6).empty? %>
+                                        <td style="background-color: #2ecc71"></td>
+                                      <% end %>
+                                      <% @locataire.sinistres.by_year_and_month(2016, 6).each do |sinistre| %>
+                                        <% if sinistre.category == "Impayé" %>
+                                          <td style="background-color:#CE2E40"></td>
+                                        <% elsif sinistre.category == "Retard de paiement" %>
+                                          <td style="background-color:#F5A623"></td>
+                                        <% elsif sinistre.category == "Paiement partiel" %>
+                                          <td style="background-color:#14979C"></td>
+                                        <% end %>
+                                      <% end %>
+                                      <% if @locataire.sinistres.by_year_and_month(2016, 7).empty? %>
+                                        <td style="background-color: #2ecc71"></td>
+                                      <% end %>
+                                      <% @locataire.sinistres.by_year_and_month(2016, 7).each do |sinistre| %>
+                                        <% if sinistre.category == "Impayé" %>
+                                          <td style="background-color:#CE2E40"></td>
+                                        <% elsif sinistre.category == "Retard de paiement" %>
+                                          <td style="background-color:#F5A623"></td>
+                                        <% elsif sinistre.category == "Paiement partiel" %>
+                                          <td style="background-color:#14979C"></td>
+                                        <% end %>
+                                      <% end %>
+                                      <% if @locataire.sinistres.by_year_and_month(2016, 8).empty? %>
+                                        <td style="background-color: #2ecc71"></td>
+                                      <% end %>
+                                      <% @locataire.sinistres.by_year_and_month(2016, 8).each do |sinistre| %>
+                                        <% if sinistre.category == "Impayé" %>
+                                          <td style="background-color:#CE2E40"></td>
+                                        <% elsif sinistre.category == "Retard de paiement" %>
+                                          <td style="background-color:#F5A623"></td>
+                                        <% elsif sinistre.category == "Paiement partiel" %>
+                                          <td style="background-color:#14979C"></td>
+                                        <% end %>
+                                      <% end %>
+                                      <% if @locataire.sinistres.by_year_and_month(2016, 9).empty? %>
+                                        <td style="background-color: #2ecc71"></td>
+                                      <% end %>
+                                      <% @locataire.sinistres.by_year_and_month(2016, 9).each do |sinistre| %>
+                                        <% if sinistre.category == "Impayé" %>
+                                          <td style="background-color:#CE2E40"></td>
+                                        <% elsif sinistre.category == "Retard de paiement" %>
+                                          <td style="background-color:#F5A623"></td>
+                                        <% elsif sinistre.category == "Paiement partiel" %>
+                                          <td style="background-color:#14979C"></td>
+                                        <% end %>
+                                      <% end %>
+                                      <% if @locataire.sinistres.by_year_and_month(2016, 10).empty? %>
+                                        <td style="background-color: #2ecc71"></td>
+                                      <% end %>
+                                      <% @locataire.sinistres.by_year_and_month(2016, 10).each do |sinistre| %>
+                                        <% if sinistre.category == "Impayé" %>
+                                          <td style="background-color:#CE2E40"></td>
+                                        <% elsif sinistre.category == "Retard de paiement" %>
+                                          <td style="background-color:#F5A623"></td>
+                                        <% elsif sinistre.category == "Paiement partiel" %>
+                                          <td style="background-color:#14979C"></td>
+                                        <% end %>
+                                      <% end %>
+                                      <% if @locataire.sinistres.by_year_and_month(2016, 11).empty? %>
+                                        <td style="background-color: #2ecc71"></td>
+                                      <% end %>
+                                      <% @locataire.sinistres.by_year_and_month(2016, 11).each do |sinistre| %>
+                                        <% if sinistre.category == "Impayé" %>
+                                          <td style="background-color:#CE2E40"></td>
+                                        <% elsif sinistre.category == "Retard de paiement" %>
+                                          <td style="background-color:#F5A623"></td>
+                                        <% elsif sinistre.category == "Paiement partiel" %>
+                                          <td style="background-color:#14979C"></td>
+                                        <% end %>
+                                      <% end %>
+                                      <% if @locataire.sinistres.by_year_and_month(2016, 12).empty? %>
+                                        <td style="background-color: #2ecc71"></td>
+                                      <% end %>
+                                      <% @locataire.sinistres.by_year_and_month(2016, 12).each do |sinistre| %>
+                                        <% if sinistre.category == "Impayé" %>
+                                          <td style="background-color:#CE2E40"></td>
+                                        <% elsif sinistre.category == "Retard de paiement" %>
+                                          <td style="background-color:#F5A623"></td>
+                                        <% elsif sinistre.category == "Paiement partiel" %>
+                                          <td style="background-color:#14979C"></td>
+                                        <% end %>
+                                      <% end %>
+                                </tr>
+
+                                <tr>
+                                    <th>2017</th>
+                                      <% if @locataire.sinistres.by_year_and_month(2017, 1).empty? %>
+                                        <td style="background-color: #2ecc71"></td>
+                                      <% end %>
+                                      <% @locataire.sinistres.by_year_and_month(2017, 1).each do |sinistre| %>
+                                        <% if sinistre.category == "Impayé" %>
+                                          <td style="background-color:#CE2E40"></td>
+                                        <% elsif sinistre.category == "Retard de paiement" %>
+                                          <td style="background-color:#F5A623"></td>
+                                        <% elsif sinistre.category == "Paiement partiel" %>
+                                          <td style="background-color:#14979C"></td>
+                                        <% end %>
+                                      <% end %>
+                                      <% if @locataire.sinistres.by_year_and_month(2017, 2).empty? %>
+                                        <td style="background-color: #2ecc71"></td>
+                                      <% end %>
+                                      <% @locataire.sinistres.by_year_and_month(2017, 2).each do |sinistre| %>
+                                        <% if sinistre.category == "Impayé" %>
+                                          <td style="background-color:#CE2E40"></td>
+                                        <% elsif sinistre.category == "Retard de paiement" %>
+                                          <td style="background-color:#F5A623"></td>
+                                        <% elsif sinistre.category == "Paiement partiel" %>
+                                          <td style="background-color:#14979C"></td>
+                                        <% end %>
+                                      <% end %>
+                                      <% if @locataire.sinistres.by_year_and_month(2017, 3).empty? %>
+                                        <td style="background-color: #2ecc71"></td>
+                                      <% end %>
+                                      <% @locataire.sinistres.by_year_and_month(2017, 3).each do |sinistre| %>
+                                        <% if sinistre.category == "Impayé" %>
+                                          <td style="background-color:#CE2E40"></td>
+                                        <% elsif sinistre.category == "Retard de paiement" %>
+                                          <td style="background-color:#F5A623"></td>
+                                        <% elsif sinistre.category == "Paiement partiel" %>
+                                          <td style="background-color:#14979C"></td>
+                                        <% end %>
+                                      <% end %>
+                                      <% if @locataire.sinistres.by_year_and_month(2017, 4).empty? %>
+                                        <td style="background-color: #2ecc71"></td>
+                                      <% end %>
+                                      <% @locataire.sinistres.by_year_and_month(2017, 4).each do |sinistre| %>
+                                        <% if sinistre.category == "Impayé" %>
+                                          <td style="background-color:#CE2E40"></td>
+                                        <% elsif sinistre.category == "Retard de paiement" %>
+                                          <td style="background-color:#F5A623"></td>
+                                        <% elsif sinistre.category == "Paiement partiel" %>
+                                          <td style="background-color:#14979C"></td>
+                                        <% end %>
+                                      <% end %>
+                                      <% if @locataire.sinistres.by_year_and_month(2017, 5).empty? %>
+                                      <td style="background-color: #2ecc71"></td>
+                                      <% end %>
+                                      <% @locataire.sinistres.by_year_and_month(2017, 5).each do |sinistre| %>
+                                        <% if sinistre.category == "Impayé" %>
+                                          <td style="background-color:#CE2E40"></td>
+                                        <% elsif sinistre.category == "Retard de paiement" %>
+                                          <td style="background-color:#F5A623"></td>
+                                        <% elsif sinistre.category == "Paiement partiel" %>
+                                          <td style="background-color:#14979C"></td>
+                                        <% end %>
+                                      <% end %>
+                                      <% if @locataire.sinistres.by_year_and_month(2017, 6).empty? %>
+                                      <td style="background-color: #2ecc71"></td>
+                                      <% end %>
+                                      <% @locataire.sinistres.by_year_and_month(2017, 6).each do |sinistre| %>
+                                        <% if sinistre.category == "Impayé" %>
+                                          <td style="background-color:#CE2E40"></td>
+                                        <% elsif sinistre.category == "Retard de paiement" %>
+                                          <td style="background-color:#F5A623"></td>
+                                        <% elsif sinistre.category == "Paiement partiel" %>
+                                          <td style="background-color:#14979C"></td>
+                                        <% end %>
+                                      <% end %>
+                                      <% if @locataire.sinistres.by_year_and_month(2017, 7).empty? %>
+                                      <td style="background-color: #2ecc71"></td>
+                                      <% end %>
+                                      <% @locataire.sinistres.by_year_and_month(2017, 7).each do |sinistre| %>
+                                        <% if sinistre.category == "Impayé" %>
+                                          <td style="background-color:#CE2E40"></td>
+                                        <% elsif sinistre.category == "Retard de paiement" %>
+                                          <td style="background-color:#F5A623"></td>
+                                        <% elsif sinistre.category == "Paiement partiel" %>
+                                          <td style="background-color:#14979C"></td>
+                                        <% end %>
+                                      <% end %>
+                                      <% if @locataire.sinistres.by_year_and_month(2017, 8).empty? %>
+                                      <td style="background-color: #2ecc71"></td>
+                                      <% end %>
+                                      <% @locataire.sinistres.by_year_and_month(2017, 8).each do |sinistre| %>
+                                        <% if sinistre.category == "Impayé" %>
+                                          <td style="background-color:#CE2E40"></td>
+                                        <% elsif sinistre.category == "Retard de paiement" %>
+                                          <td style="background-color:#F5A623"></td>
+                                        <% elsif sinistre.category == "Paiement partiel" %>
+                                          <td style="background-color:#14979C"></td>
+                                        <% end %>
+                                      <% end %>
+                                      <% if @locataire.sinistres.by_year_and_month(2017, 9).empty? %>
+                                      <td style="background-color: #2ecc71"></td>
+                                      <% end %>
+                                      <% @locataire.sinistres.by_year_and_month(2017, 9).each do |sinistre| %>
+                                        <% if sinistre.category == "Impayé" %>
+                                          <td style="background-color:#CE2E40"></td>
+                                        <% elsif sinistre.category == "Retard de paiement" %>
+                                          <td style="background-color:#F5A623"></td>
+                                        <% elsif sinistre.category == "Paiement partiel" %>
+                                          <td style="background-color:#14979C"></td>
+                                        <% end %>
+                                      <% end %>
+                                      <% if @locataire.sinistres.by_year_and_month(2017, 10).empty? %>
+                                        <td></td>
+                                      <% end %>
+                                      <% @locataire.sinistres.by_year_and_month(2017, 10).each do |sinistre| %>
+                                        <% if sinistre.category == "Impayé" %>
+                                          <td style="background-color:#CE2E40"></td>
+                                        <% elsif sinistre.category == "Retard de paiement" %>
+                                          <td style="background-color:#F5A623"></td>
+                                        <% elsif sinistre.category == "Paiement partiel" %>
+                                          <td style="background-color:#14979C"></td>
+                                        <% end %>
+                                      <% end %>
+                                      <% if @locataire.sinistres.by_year_and_month(2017, 11).empty? %>
+                                        <td></td>
+                                      <% end %>
+                                      <% @locataire.sinistres.by_year_and_month(2017, 11).each do |sinistre| %>
+                                        <% if sinistre.category == "Impayé" %>
+                                          <td style="background-color:#CE2E40"></td>
+                                        <% elsif sinistre.category == "Retard de paiement" %>
+                                          <td style="background-color:#F5A623"></td>
+                                        <% elsif sinistre.category == "Paiement partiel" %>
+                                          <td style="background-color:#14979C"></td>
+                                        <% end %>
+                                      <% end %>
+                                      <% if @locataire.sinistres.by_year_and_month(2017, 12).empty? %>
+                                        <td></td>
+                                      <% end %>
+                                      <% @locataire.sinistres.by_year_and_month(2017, 12).each do |sinistre| %>
+                                        <% if sinistre.category == "Impayé" %>
+                                          <td style="background-color:#CE2E40"></td>
+                                        <% elsif sinistre.category == "Retard de paiement" %>
+                                          <td style="background-color:#F5A623"></td>
+                                        <% elsif sinistre.category == "Paiement partiel" %>
+                                          <td style="background-color:#14979C"></td>
+                                        <% end %>
+                                      <% end %>
+                                </tr>
+
+                                <tr>
+                                    <th>2018</th>
+                                      <% if @locataire.sinistres.by_year_and_month(2018, 1).empty? %>
+                                        <td></td>
+                                      <% end %>
+                                      <% @locataire.sinistres.by_year_and_month(2018, 1).each do |sinistre| %>
+                                        <% if sinistre.category == "Impayé" %>
+                                          <td style="background-color:#CE2E40"></td>
+                                        <% elsif sinistre.category == "Retard de paiement" %>
+                                          <td style="background-color:#F5A623"></td>
+                                        <% elsif sinistre.category == "Paiement partiel" %>
+                                          <td style="background-color:#14979C"></td>
+                                        <% end %>
+                                      <% end %>
+                                      <% if @locataire.sinistres.by_year_and_month(2018, 2).empty? %>
+                                        <td></td>
+                                      <% end %>
+                                      <% @locataire.sinistres.by_year_and_month(2018, 2).each do |sinistre| %>
+                                        <% if sinistre.category == "Impayé" %>
+                                          <td style="background-color:#CE2E40"></td>
+                                        <% elsif sinistre.category == "Retard de paiement" %>
+                                          <td style="background-color:#F5A623"></td>
+                                        <% elsif sinistre.category == "Paiement partiel" %>
+                                          <td style="background-color:#14979C"></td>
+                                        <% end %>
+                                      <% end %>
+                                      <% if @locataire.sinistres.by_year_and_month(2018, 3).empty? %>
+                                        <td></td>
+                                      <% end %>
+                                      <% @locataire.sinistres.by_year_and_month(2018, 3).each do |sinistre| %>
+                                        <% if sinistre.category == "Impayé" %>
+                                          <td style="background-color:#CE2E40"></td>
+                                        <% elsif sinistre.category == "Retard de paiement" %>
+                                          <td style="background-color:#F5A623"></td>
+                                        <% elsif sinistre.category == "Paiement partiel" %>
+                                          <td style="background-color:#14979C"></td>
+                                        <% end %>
+                                      <% end %>
+                                      <% if @locataire.sinistres.by_year_and_month(2018, 4).empty? %>
+                                        <td></td>
+                                      <% end %>
+                                      <% @locataire.sinistres.by_year_and_month(2018, 4).each do |sinistre| %>
+                                        <% if sinistre.category == "Impayé" %>
+                                          <td style="background-color:#CE2E40"></td>
+                                        <% elsif sinistre.category == "Retard de paiement" %>
+                                          <td style="background-color:#F5A623"></td>
+                                        <% elsif sinistre.category == "Paiement partiel" %>
+                                          <td style="background-color:#14979C"></td>
+                                        <% end %>
+                                      <% end %>
+                                      <% if @locataire.sinistres.by_year_and_month(2018, 5).empty? %>
+                                        <td></td>
+                                      <% end %>
+                                      <% @locataire.sinistres.by_year_and_month(2018, 5).each do |sinistre| %>
+                                        <% if sinistre.category == "Impayé" %>
+                                          <td style="background-color:#CE2E40"></td>
+                                        <% elsif sinistre.category == "Retard de paiement" %>
+                                          <td style="background-color:#F5A623"></td>
+                                        <% elsif sinistre.category == "Paiement partiel" %>
+                                          <td style="background-color:#14979C"></td>
+                                        <% end %>
+                                      <% end %>
+                                      <% if @locataire.sinistres.by_year_and_month(2018, 6).empty? %>
+                                        <td></td>
+                                      <% end %>
+                                      <% @locataire.sinistres.by_year_and_month(2018, 6).each do |sinistre| %>
+                                        <% if sinistre.category == "Impayé" %>
+                                          <td style="background-color:#CE2E40"></td>
+                                        <% elsif sinistre.category == "Retard de paiement" %>
+                                          <td style="background-color:#F5A623"></td>
+                                        <% elsif sinistre.category == "Paiement partiel" %>
+                                          <td style="background-color:#14979C"></td>
+                                        <% end %>
+                                      <% end %>
+                                      <% if @locataire.sinistres.by_year_and_month(2018, 7).empty? %>
+                                        <td></td>
+                                      <% end %>
+                                      <% @locataire.sinistres.by_year_and_month(2018, 7).each do |sinistre| %>
+                                        <% if sinistre.category == "Impayé" %>
+                                          <td style="background-color:#CE2E40"></td>
+                                        <% elsif sinistre.category == "Retard de paiement" %>
+                                          <td style="background-color:#F5A623"></td>
+                                        <% elsif sinistre.category == "Paiement partiel" %>
+                                          <td style="background-color:#14979C"></td>
+                                        <% end %>
+                                      <% end %>
+                                      <% if @locataire.sinistres.by_year_and_month(2018, 8).empty? %>
+                                        <td></td>
+                                      <% end %>
+                                      <% @locataire.sinistres.by_year_and_month(2018, 8).each do |sinistre| %>
+                                        <% if sinistre.category == "Impayé" %>
+                                          <td style="background-color:#CE2E40"></td>
+                                        <% elsif sinistre.category == "Retard de paiement" %>
+                                          <td style="background-color:#F5A623"></td>
+                                        <% elsif sinistre.category == "Paiement partiel" %>
+                                          <td style="background-color:#14979C"></td>
+                                        <% end %>
+                                      <% end %>
+                                      <% if @locataire.sinistres.by_year_and_month(2018, 9).empty? %>
+                                        <td></td>
+                                      <% end %>
+                                      <% @locataire.sinistres.by_year_and_month(2018, 9).each do |sinistre| %>
+                                        <% if sinistre.category == "Impayé" %>
+                                          <td style="background-color:#CE2E40"></td>
+                                        <% elsif sinistre.category == "Retard de paiement" %>
+                                          <td style="background-color:#F5A623"></td>
+                                        <% elsif sinistre.category == "Paiement partiel" %>
+                                          <td style="background-color:#14979C"></td>
+                                        <% end %>
+                                      <% end %>
+                                      <% if @locataire.sinistres.by_year_and_month(2018, 10).empty? %>
+                                        <td></td>
+                                      <% end %>
+                                      <% @locataire.sinistres.by_year_and_month(2018, 10).each do |sinistre| %>
+                                        <% if sinistre.category == "Impayé" %>
+                                          <td style="background-color:#CE2E40"></td>
+                                        <% elsif sinistre.category == "Retard de paiement" %>
+                                          <td style="background-color:#F5A623"></td>
+                                        <% elsif sinistre.category == "Paiement partiel" %>
+                                          <td style="background-color:#14979C"></td>
+                                        <% end %>
+                                      <% end %>
+                                      <% if @locataire.sinistres.by_year_and_month(2018, 11).empty? %>
+                                        <td></td>
+                                      <% end %>
+                                      <% @locataire.sinistres.by_year_and_month(2018, 11).each do |sinistre| %>
+                                        <% if sinistre.category == "Impayé" %>
+                                          <td style="background-color:#CE2E40"></td>
+                                        <% elsif sinistre.category == "Retard de paiement" %>
+                                          <td style="background-color:#F5A623"></td>
+                                        <% elsif sinistre.category == "Paiement partiel" %>
+                                          <td style="background-color:#14979C"></td>
+                                        <% end %>
+                                      <% end %>
+                                      <% if @locataire.sinistres.by_year_and_month(2018, 12).empty? %>
+                                        <td></td>
+                                      <% end %>
+                                      <% @locataire.sinistres.by_year_and_month(2018, 12).each do |sinistre| %>
+                                        <% if sinistre.category == "Impayé" %>
+                                          <td style="background-color:#CE2E40"></td>
+                                        <% elsif sinistre.category == "Retard de paiement" %>
+                                          <td style="background-color:#F5A623"></td>
+                                        <% elsif sinistre.category == "Paiement partiel" %>
+                                          <td style="background-color:#14979C"></td>
+                                        <% end %>
+                                      <% end %>
+                                </tr>
+                            </table>
+                            <div class="legende-table">
+                              <div style="color: white;background: #CE2E40;margin-right: 10px;padding: 5px;border-radius: 5px;">Impayé</div>
+                              <div style="background: #F5A623;color: white;margin-right: 10px;padding: 5px;border-radius: 5px;">Retard de paiement</div>
+                              <div style="color: white;background: #14979c;padding: 5px;border-radius: 5px;">Paiement partiel</div>
+                            </div>
+                            <div class="sous-titre-user-qr">Garantie loyers impayés</div>
+                            <div class="separateur-user"></div>
+                            <p>Il n'y a pas de contrat GLI pour ce locataire.</p>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>

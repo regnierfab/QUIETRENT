@@ -1,0 +1,72 @@
+<div class="container">
+  <div class="row">
+    <div class="snip1404">
+      <h2 class="text-center subtitle-plans" style="margin-bottom: 3em;"><span class="inside-subtitle">Choisissez votre plan</span></h2>
+      <% @plans.each do |plan| %>
+      <% if plan.name != "BUSINESS" %>
+      <div class="plan <%= 'featured' if plan.highlight? %>">
+        <header>
+          <h4 class="plan-title">PLAN <%= plan.name %></h4>
+          <span class="sous-titre">1 À 5 BIENS</span>
+          <div class="plan-cost"><span class="plan-price"><%= plan.price %>0€</span><span class="plan-type">/mois</span></div>
+          <div class="offer-2-month">Gratuit Pendant 2 mois !</div>
+        </header>
+        <ul class="plan-features">
+          <% if Koudoku.free_trial? %>
+          <li class='muted'><%= Koudoku.free_trial_length %>-day Free Trial</li>
+          <% end %>
+          <% all_features = plan.features.gsub(/\n\n/, ',').split(',') %>
+          <% all_features.each do |f| %>
+          <li><i class="ion-checkmark-circled"> </i><%= f %></li>
+          <% end %>
+        </ul>
+        <div class="plan-select">
+          <% if @subscription.nil? %>
+          <%= link_to Koudoku.free_trial? ? 'Start Trial' : 'Choisir ce plan', koudoku.new_subscription_path(plan: plan.id) %>
+          <% elsif @subscription.persisted? %>
+          <% if @subscription.plan == plan %>
+          <%= form_for @subscription, url: owner_subscription_path(@owner, @subscription) do |f| %>
+          <%= f.submit 'Sélectionné', class: "button-pricing-c", disabled: 'disabled' %>
+          <% end %>
+          <% else %>
+          <%= form_for @subscription, url: owner_subscription_path(@owner, @subscription) do |f| %>
+          <%= f.hidden_field :plan_id, value: plan.id %>
+          <%= f.submit @subscription.describe_difference(plan), class:'button-pricing' %>
+          <% end %>
+          <% end %>
+          <% else %>
+          <%= link_to Koudoku.free_trial? ? 'Start Trial' : 'Choisir', new_owner_subscription_path(@owner, plan: plan.id) %>
+          <% end %>
+        </div>
+      </div>
+      <% end %>
+      <% end %>
+      <div class="plan" style="height: auto;">
+        <header>
+          <h4 class="plan-title">
+            Plan Business
+          </h4>
+          <span class="sous-titre">+ DE 30 BIENS</span>
+          <div class="plan-cost" style="padding: 47px 20px 10px;margin-bottom: 5px;"><span class="plan-price" style="font-size: 1.4em;">SUR MESURE</span></div>
+          <div class="offer-2-month">Gratuit Pendant 2 mois !</div>
+        </header>
+        <ul class="plan-features">
+         <li style="color: #0B2057;font-weight: bold;"><i class="ion-checkmark-circled"> </i>PLAN STANDARD</li>
+         <li><i class="ion-checkmark-circled"> </i>Gestion multiparcs</li>
+         <li><i class="ion-checkmark-circled"> </i>API Scoring amont</li>
+       </ul>
+       <div class="plan-select" style="margin-top: 48px;"><a href="">CHOISIR CE PLAN</a></div>
+     </div>
+   </div>
+ </div>
+</div>
+
+<% content_for :after_js do %>
+<script>
+  $(document).ready(function() {
+    $('body > div.container > div > div > div.plan.featured > header > span').text('6 À 30 BIENS')
+    $('body > div.container > div > div > div.plan.featured > ul > li:nth-child(1)').css('color','#0B2057').css('font-weight', 'bold')
+  });
+</script>
+<% end %>
+

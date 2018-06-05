@@ -1,0 +1,78 @@
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content hauteur-evp">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+            <div id="button_close_modal"></div>
+            <h3 class="text-center">Évaluation de profil</h3>
+            <div class="border-orange"></div>
+            <p class="text-center">Évaluer le potentiel locatif d’une personne
+                <br>
+                pour connaître sa fiabilité :
+            </p>
+            <%= simple_form_for @evaluation, remote: true do |f| %>
+            <%= f.error_notification %>
+            <div class="col-xs-12 text-center" style="margin-top: 1em;padding: 0;">
+                <div class="row">
+                    <div class="categorie-edp">
+                        <i class="fa fa-home icon-edp-qr" style="top: 0.6em;left: -0.3em;"></i>
+                        <%= f.input :edp_loyer, label: false, :placeholder => 'Loyer (tout compris)', required: true, autofocus: true, input_html: { class: 'input-edp-loyer' }%>
+                        <span class="input-group-addon euro-edp-input">€</span>
+                    </div>
+                    <div class="categorie-edp">
+                        <i class="fa fa-flag icon-edp-qr" style="top: 0.6em;left: 13.6em;"></i>
+                        <%= f.input :edp_situation_familiale, :as => :grouped_select, :collection => { 'Choisissez...'=> ['Seul', 'Couple sans enfant', 'Couple avec enfant', 'Famille monoparentale'] }, :group_method => :last, label: false, :prompt => "Situation familiale",
+                        required: true, autofocus: true, input_html: { class: 'input-edp' }%>
+                    </div>
+                </div>
+                <div class="row" style="margin-right: -20px;">
+                    <div class="categorie-edp">
+                        <i class="fa fa-money icon-edp-qr" style="top: 4.9em;left: -0.3em;"></i>
+                        <%= f.input :edp_revenus_mensuels, label: false, :placeholder => "Revenus mensuels", required: true, autofocus: true, input_html: { class: 'input-edp' }%>
+                        <span class="input-group-addon euro-edp-input-rm">
+                            €</span>
+                    </div>
+                    <div class="categorie-edp">
+                        <i class="fa fa-flag-checkered icon-edp-qr" style="top: 5em;left: 13.7em;"></i>
+                        <%= f.input :edp_year_birth, label: false, :placeholder => "Année de naissance", required: true, autofocus: true, input_html: { class: 'input-edp' }%>
+                    </div>
+                </div>
+                <div class="row" style="margin-right: -20px;">
+                    <div class="categorie-edp">
+                        <i class="fa fa-book icon-edp-qr" style="top: 9.3em;left: -0.3em;"></i>
+                        <%= f.input :edp_contrat_travail, :as => :grouped_select, :collection => { 'Choisissez...'=> ['CDI', 'CDD de plus de 8 mois', 'Retraité', 'Sans emploi', 'Indépendant (professions libérales, auto-entrepreneur, etc...)', 'Contrat précaire (étudiant, saisonnier, interim, mi-temps, etc...)'] }, :group_method => :last, label: false, :prompt => "Contrat de travail", required: true, autofocus: true, input_html: { class: 'input-edp' }%>
+                    </div>
+                    <div class="categorie-edp">
+                        <i class="fa fa-users icon-edp-qr" style="top: 9.3em;left: 13.7em;"></i>
+                        <%= f.input :edp_city, label: false, required: true, autofocus: true, placeholder: "Ville", input_html: { class: 'input-edp-place places-address' }%>
+                    </div>
+                </div>
+                <div class="row" style="margin-right: -20px;">
+                    <div class="col-xs-12">
+                        <%= f.button :submit, "Confirmer", class: 'btn btn-success btn-lg valider', data: {target: "#modal_resultat", toggle: "modal"} %>
+                    </div>
+                </div>
+            </div>
+            <%end %>
+            <hr>
+        </div>
+    </div>
+</div>
+
+
+<script src="https://cdn.jsdelivr.net/places.js/1.4.7/places.min.js"></script>
+
+<script>
+var placesAutocomplete = places ({
+  container: document.querySelector('.places-address'),
+  language: 'fr', // Receives results in German
+  type: 'city',
+  countries: ['fr'],
+  templates: {
+      value: function(suggestion) {
+        return suggestion.name;
+      }
+    }
+});
+</script>

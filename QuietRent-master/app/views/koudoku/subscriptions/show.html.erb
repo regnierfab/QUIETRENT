@@ -1,0 +1,71 @@
+<% if @subscription.plan.present? %>
+<div class="my-subscription">
+<%= link_to 'Mon dashboard ➡️', main_app.user_path(current_user), class:'btn lmy-subscription' %>
+</div>
+<div class="container">
+  <div class="row">
+    <div class="snip1404" style="display: flex;justify-content: center;margin-bottom: 0em;">
+      <div>
+        <h2 class="text-center subtitle-plans"><span class="inside-subtitle">Mon abonnement</span></h2>
+        <p class="text-center" style="color: #0B2057;margin-top: 2em;font-size: 23px;">Vous êtes actuellement abonné au <span style="color: #F18132">PLAN <%= @subscription.plan.name %></span></p>
+        <p class="text-center" style="color: #0B2057;font-size: 16px;">La carte enregistrée pour votre compte se termine par <b><span style="color: #F18132"><%= @subscription.last_four %></span></b></p>
+      </div>
+    </div>
+    <div style="text-align: center;margin-top: 1em;margin-bottom: 3em;">
+      <%= link_to edit_owner_subscription_path(@owner, @subscription), class: 'btn btn-abonnement' do %>
+      <i class="fa fa-refresh" aria-hidden="true"></i>
+      Choisir un autre Plan
+      <% end %>
+      <%= link_to edit_owner_subscription_path(@owner, @subscription, update: 'card'), class: 'btn btn-abonnement-paiement' do %>
+      <i class="fa fa-refresh" aria-hidden="true"></i>
+      Changer méthode de paiement
+      <% end %>
+      <%= link_to cancel_owner_subscription_path(@owner, @subscription), method: :post, class:'btn btn-abonnement-cancel' do %>
+      <i class="fa fa-ban" aria-hidden="true"></i>
+      Annuler votre subscription
+      <% end %>
+    </div>
+    <div class="snip1404" style="display: flex;justify-content: center;margin-top: 2em;">
+      <div class="plan">
+        <header>
+          <h4 class="plan-title">PLAN <%= @subscription.plan.name %></h4>
+          <span class="sous-titre">
+            <% if @subscription.plan.id == 1 %>
+            1 À 5 BIENS
+            <% elsif @subscription.plan.id == 2 %>
+            6 À 30 BIENS
+            <% else %>
+            + DE 30 BIENS
+            <% end %>
+          </span>
+          <div class="plan-cost"><span class="plan-price"><%= @subscription.plan.price %>0€</span><span class="plan-type">/mois</span></div>
+          <div class="offer-2-month">Gratuit Pendant 2 mois !</div>
+        </header>
+        <ul class="plan-features">
+          <% if Koudoku.free_trial? %>
+          <li class='muted'><%= Koudoku.free_trial_length %>-day Free Trial</li>
+          <% end %>
+          <% all_features = @subscription.plan.features.gsub(/\n\n/, ',').split(',') %>
+          <% all_features.each do |f| %>
+          <li><i class="ion-checkmark-circled"> </i><%= f %></li>
+          <% end %>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+<% else %>
+<div class="container">
+  <div class="row">
+    <div class="snip1404">
+      <div>
+        <h2 class="text-center subtitle-plans"><span class="inside-subtitle">Mon abonnement</span></h2>
+        <p class="text-center" style="color: #0B2057;margin-top: 2em;font-size: 23px;">Vous êtes abonné à aucun plan.</p>
+      </div>
+      <div class="text-center" style="margin-top: 2em;">
+        <%= link_to 'Choisir un abonnement', edit_owner_subscription_path(@owner, @subscription), class: 'btn btn-abonnement' %>
+      </div>
+    </div>
+  </div>
+</div>
+<% end %>

@@ -1,0 +1,123 @@
+<div class="text-center">
+  <h2 class="welcome-locataire">Bienvenue dans votre espace locataire <br><b><%= @user.firstname.capitalize + ' ' + @user.lastname.capitalize %></b></h2>
+  <div id="no-resolutions"></div>
+
+  <% @a.each_with_index do |resolution, i| %>
+  <% if resolution.status == "Résolution acceptée" %>
+  <div class="resolution-esp-locataire hidden">
+    <% elsif resolution.status == "Résolution refusée" %>
+    <div class="resolution-esp-locataire hidden">
+      <% else %>
+      <div class="resolution-esp-locataire">
+        <% end %>
+        <div><h3 class="number-resolution">Resolution n°<%= i + 1 %></h3></div>
+        <div class="col-xs-6" style="line-height: 30px;padding: 20px;text-align: center;">
+          <div style="margin-bottom: 2em;">
+            <h5 class="resolution-h5">Information proprietaire</h5>
+            <div class="resolution-infos-title">
+              Prénom & Nom : <span class="resolution-infos"><%= resolution.user.firstname + ' ' + resolution.user.lastname %></span>
+            </div>
+            <div class="resolution-infos-title">
+              Email : <span class="resolution-infos"><%= resolution.user.email %></span>
+            </div>
+          </div>
+          <div>
+            <h5 class="resolution-h5">Préjudice</h5>
+            <div class="resolution-infos-title">
+              Nature du préjudice : <span class="resolution-infos"><%= resolution.motif_prejudice %></span>
+            </div>
+            <div class="resolution-infos-title">
+              Montant du préjudice : <span class="resolution-infos"><%= resolution.montant_prejudice %>.00€</span>
+            </div>
+          </div>
+        </div>
+        <div class="col-xs-6" style="padding: 20px;line-height: 30px;text-align: left;">
+          <div>
+            <h5 class="resolution-h5">Proposition financière du proprietaire</h5>
+            <div class="resolution-infos-title">
+              Réduction accordée : <span class="resolution-infos"><%= resolution.montant_reduction %>.00€</span>
+            </div>
+            <div class="resolution-infos-title">
+              Montant restant à payer : <span class="resolution-infos"><%= resolution.montant_prejudice.to_i - resolution.montant_reduction.to_i %>.00€</span>
+            </div>
+            <div class="resolution-infos-title">
+              Date de début du paiement : <span class="resolution-infos"><%= I18n.localize(resolution.paiement_le, format: '%e %B %Y', locale: 'fr') %></span>
+            </div>
+            <div class="resolution-infos-title">
+              Échelonnement du paiement sur : <span class="resolution-infos"><%= resolution.paiement_sur %></span>
+            </div>
+            <div class="resolution-infos-title">
+              Nombre de paiements : <span class="resolution-infos"><%= resolution.nombre_paiement %></span>
+            </div>
+          </div>
+        </div>
+        <div class="col-xs-8 col-xs-offset-2 text-center">
+          <div>
+            <h5 class="resolution-h5">Commentaire du proprietaire</h5>
+            <p class="description_resolution-loc"><%= resolution.description %></p>
+          </div>
+        </div>
+        <%= simple_form_for resolution do |f| %>
+        <div class="col-xs-12" style="padding: 15px">
+        <div class="title-accept"><h4 style="font-size:19px;font-weight: bold;">Accepter la proposition ?</h4></div>
+          <input type="radio" name="resolution[status]" id="yes<%= resolution.id %>" value="Résolution acceptée" checked>
+          <input type="radio" name="resolution[status]" id="no<%= resolution.id %>" value="Résolution refusée">
+          <div class="switch">
+            <label for="yes<%= resolution.id %>">Oui</label>
+            <label for="no<%= resolution.id %>">Non</label>
+            <span></span>
+          </div>
+        </div>
+        <div class="col-xs-8 col-xs-offset-2" style="margin-bottom: 2em;">
+         <label for="resolution_commentaire_loc" style="font-size: 19px;">Votre commentaire</label>
+          <%= f.input :commentaire_loc, label: false %>
+        </div>
+        <div class="col-xs-12">
+          <%= f.submit 'Confirmer', class: 'maj-resolution' %>
+        </div>
+        <% end %>
+      </div>
+      <style>
+              label[for=yes<%= resolution.id %>] {
+                position: absolute;
+                left: 0px;
+                height: 20px;
+              }
+              label[for=no<%= resolution.id %>] {
+                position: absolute;
+                right: 0px;
+              }
+              #yes<%= resolution.id %>:checked ~ .switch label[for=yes<%= resolution.id %>] {
+                color: #fff;
+              }
+              #no<%= resolution.id %>:checked ~ .switch label[for=no<%= resolution.id %>] {
+                color: #fff;
+              }
+              #no<%= resolution.id %>:checked ~ .switch {
+                background: #ff3b30;
+              }
+              #no<%= resolution.id %>:checked ~ .switch span {
+                background: #fff;
+                margin-left: -8px;
+              }
+              #no<%= resolution.id %>:checked ~ .switch span:after {
+                background: #fff;
+                height: 20px;
+                margin-top: -8px;
+                margin-left: 8px;
+              }
+            </style>
+      <% end %>
+    </div>
+
+
+    <% content_for(:after_js) do %>
+    <script type="text/javascript">
+      $(document).ready(function () {
+        $('.radio').addClass('col-xs-6');
+        if ($('.resolution-esp-locataire').length === $('.resolution-esp-locataire.hidden').length) {
+          $('#no-resolutions').append('<p><i class="fa fa-info-circle" aria-hidden="true"></i>  Vous n\'avez aucune proposition de résolution amiable. </p>')
+        };
+      });
+    </script>
+    <% end %>

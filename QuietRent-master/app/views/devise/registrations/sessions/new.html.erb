@@ -1,0 +1,28 @@
+<%= simple_form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+  <div class="form-inputs">
+  <h2 class="text-center">Se connecter</h2>
+  <div class="border-orange-origin"></div>
+  <div class="col-xs-12">
+  <label class="control-label">Email</label>
+    <%= f.input :email, label: false, required: false, autofocus: true %>
+  </div>
+  <div class="col-xs-12">
+  <label class="control-label">Mot de passe</label>
+    <%= f.input :password, label: false, required: false %>
+  </div>
+  <div class="col-xs-12">
+    <%= f.input :remember_me, as: :boolean if devise_mapping.rememberable? %>
+  </div>
+  </div>
+
+  <div class="form-actions text-center" style="margin:1em auto;">
+    <%= f.button :submit, "CONNEXION", class: 'button-signup' %>
+    <%- if devise_mapping.recoverable? && controller_name != 'passwords' && controller_name != 'registrations' %>
+    <div class="btn btn-danger" style="background: none;border: none;font-size: 13px;display: block;"><%= link_to "Mot de passe oublié?", new_password_path(resource_name), class: 'linkaccount', style: 'color: #333' %>
+    </div>
+    <% end -%>
+  </div>
+<% end %>
+<div class="text-center">
+  <%= render "devise/shared/links" %>
+</div>

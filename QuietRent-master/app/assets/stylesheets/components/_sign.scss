@@ -1,0 +1,95 @@
+
+.modal-sm {
+    width: 480px;
+}
+
+.modal-content {
+    padding: 30px;
+    border-radius: 15px;
+    border-top: 5px solid #F18132;
+}
+
+.button-close {
+    font-size: 1.5em;
+    position: relative;
+    bottom: 40px;
+}
+
+.close:hover, .close:focus {
+    outline: none;
+}
+
+.button-signup {
+    color: white;
+    border-radius: 30px;
+    border: none;
+    background: #F18132;
+    width: 180px;
+    height: 2.5em;
+}
+
+.button-signup:hover {
+    color: white;
+    background-color: #e46b06;
+}
+
+.lot {
+  position: relative;
+  top: 2em;
+  left: 1.6em;
+}
+
+.lotmargin {
+  margin-top: -1em;
+  margin-bottom: 1em;
+}
+
+.btn-info {
+      border-radius: 10px;
+    margin-bottom: 3px;
+}
+
+
+.btn-success {
+      border-radius: 10px;
+    margin-bottom: 3px;
+}
+
+.btn-danger {
+      border-radius: 10px;
+    margin-bottom: 3px;
+}
+
+.linkaccount {
+  color: white;
+}
+.linkaccount:hover {
+  text-decoration:none;
+  color: #f7f7f7
+}
+
+a:focus {
+    outline: none;
+}
+
+a:hover, a:focus {
+    color: #808080;
+    text-decoration: none;
+    }
+.btn:focus, .btn.focus, .btn:active:focus, .btn:active.focus, .btn.active:focus, .btn.active.focus {
+    outline: none;
+}
+
+.button-home {
+  width: 18em;
+    border-radius: 10px;
+    border: none;
+    background: #F06807;
+    height: 3em;
+    font-size: 18px;
+    margin-top: 2em;
+}
+
+.button-home:focus {
+  outline:none;
+}

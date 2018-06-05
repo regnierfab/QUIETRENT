@@ -1,0 +1,38 @@
+  $("button[data-number=1]").click(function(){
+    $('#myModal').modal('hide');
+  });
+  var fiabilite_edp = <%= @evaluation.result_edp %>
+
+  $('#pourcenteval').html("<div id='jg2' class='gauge' style='width:300px; height:200px'></div>");
+  var jg2 = new JustGage({
+    id: "jg2",
+    value : fiabilite_edp,
+    min: 0,
+    max: 100,
+    gaugeWidthScale: 0.6,
+    levelColors : [  "#e74c3c", "#f39c12",  "#2ecc71" ],
+    textRenderer: function(val) { return (Math.round(val) + '%'); },
+    pointer: true,
+    pointerOptions: {
+      toplength: -15,
+      bottomlength: 10,
+      bottomwidth: 12,
+      color: '#8e8e93',
+      stroke: '#ffffff',
+      stroke_width: 3,
+      stroke_linecap: 'round'
+    },
+    onAnimationEnd: function() {
+      if (fiabilite_edp >= 75) {
+        $('#status-edp').html('<p>Très fiable<p>')
+        $('#status-edp').css('color', colorStatus);
+      } else if (fiabilite_edp >= 51 && fiabilite_edp < 75 ) {
+        $('#status-edp').html('<p>Fiable<p>')
+        $('#status-edp').css('color', colorStatus);
+      } else {
+        $('#status-edp').html('<p>Pas fiable<p>')
+        $('#status-edp').css('color', colorStatus);
+      }
+    }
+  });
+  var colorStatus = $('#jg2 > svg > path:nth-child(4)').attr('fill');

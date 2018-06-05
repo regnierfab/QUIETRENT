@@ -1,0 +1,55 @@
+<div id="filterrific_results">
+
+<div class="inside-filters"><%= page_entries_info resolutions %></div>
+
+  <div class="table-responsive">
+    <table class="table table-striped table-bordered">
+      <thead>
+        <tr>
+          <th class="text-center">Locataire</th>
+          <th class="text-center">Motif</th>
+          <th class="text-center">Montant du préjudice</th>
+          <th class="text-center">Réduction accordée</th>
+          <th class="text-center">Début du paiement</th>
+          <th class="text-center">Status</th>
+          <th class="text-center">Détails</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <% @resolutions.order('created_at ASC').each do |resolution| %>
+        <% if resolution.status == 'Résolution acceptée'  %>
+        <tr style="background: #DFF0D8">
+        <% elsif resolution.status == 'Résolution refusée' %>
+        <tr style="background: #F2DEDE">
+        <% else %>
+        <tr>
+        <% end %>
+          <td class="text-center center-td" style="text-transform: capitalize;width: 16%"><%= resolution.locataire.lastname + ' ' + resolution.locataire.firstname %></td>
+          <td class="text-center center-td" style="text-transform: capitalize;width: 11%;"><%= resolution.motif_prejudice %></td>
+          <td class="text-center center-td" style="text-transform: capitalize"><%= resolution.montant_prejudice %>.00€</td>
+          <td class="text-center center-td" style="text-transform: capitalize"><%= resolution.montant_reduction %>.00€</td>
+          <td class="text-center center-td" style="text-transform: capitalize"><%= I18n.localize(resolution.paiement_le, format: '%e %B %Y', locale: 'fr') %></td>
+          <td class="text-center center-td" style="text-transform: capitalize">
+            <% if resolution.status == "Résolution acceptée" %>
+            <i class="fa fa-check-circle-o" style="color:green;font-size:40px;cursor:pointer" aria-hidden="true" data-toggle="tooltip" data-placement="top" title="Résolution acceptée" ></i>
+            <% elsif resolution.status == "Résolution refusée" %>
+              <i class="fa fa-times-circle-o" style="color: red;font-size: 40px;cursor:pointer" aria-hidden="true" aria-hidden="true" data-toggle="tooltip" data-placement="top" title="Résolution refusée" ></i>
+            <% else %>
+              <i class="fa fa-hourglass" style="font-size: 32px;color: #777;cursor:pointer" aria-hidden="true" aria-hidden="true" data-toggle="tooltip" data-placement="top" title="Résolution en attente de réponse" ></i>
+            <% end %>
+          </td>
+          <td class="text-center center-td" style="text-transform: capitalize;width: 14%">
+            <%= link_to resolution_path(resolution), class: 'button-voire-index' do %>
+            Aperçu <i class="fa fa-arrow-circle-o-right" aria-hidden="true"></i>
+            <% end %>
+          </td>
+        </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+  <div class="text-center">
+    <%= will_paginate resolutions, param_name: "page", previous_label: "← Précedent", next_label: "Suivant →", renderer: BootstrapPagination::Rails %>
+  </div>
+</div>

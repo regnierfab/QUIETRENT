@@ -1,0 +1,2 @@
+module SinistresHelper
+end

@@ -1,0 +1,131 @@
+<% content_for :koudoku do %>
+<script type="text/javascript" src="https://js.stripe.com/v2/"></script>
+<% end %>
+
+<div class="container">
+  <div class="row">
+    <div class="snip1404">
+      <h2 class="text-center subtitle-plans" style="margin-bottom: 3em;"><span class="inside-subtitle">Modifiez votre moyen de paiement</span></h2>
+      <%= form_for @subscription, url: url, html: {id: 'payment-form', class: 'form-horizontal', style:'margin-top:-1em'} do |f| %>
+
+
+          <div class="col-md-8 col-md-offset-2 col-xs-12">
+            <div class="well-qr">
+              <div class="row card-qr">
+              </div>
+              <br/>
+              <div class="alert alert-error payment-errors" style="background: #FF6930;margin-bottom: 20px;"></div>
+              <%= f.hidden_field :plan_id %>
+              <div class="row text-center">
+                <div class="col-md-5 col-md-offset-2">
+                  <div class="form-group">
+                  <label class="label-card">Numéro de Carte de Crédit</label>
+                    <input type="text" name="number" size="20" autocomplete="off" placeholder="•••• •••• •••• ••••" class="card-number form-control text-center input-cb"/>
+                  </div>
+                </div>
+                <div class="col-md-3">
+                  <div class="form-group">
+                  <label class="label-card">Date d'expiration</label>
+                    <input type="text" placeholder="MM/YY" name="expiry" style="border:none;border-left: 1px solid #ddd;" size="5" class="card-expiry input-mini form-control input-expiration"/>
+                  </div>
+                </div>
+              </div>
+              <div class="row text-center">
+                <div class="col-md-4 col-md-offset-4">
+                  <div class="form-group">
+                  <label class="label-card">CVV</label>
+                    <input type="number" name="cvv" size="4" autocomplete="off" style="border:none;border-radius: 5px;" placeholder="•••" class="card-cvc input-small form-control text-center"/>
+                  </div>
+                </div>
+              </div>
+              <div class="control-group" style="display: flex;justify-content: center;">
+                <div class="controls" style="margin-top: 1.5em;">
+                  <% if Koudoku.free_trial? %>
+                  <button type="submit" class="btn btn-success submit-button"><%= t('koudoku.payment.save_billing_info') %></button>
+                  <% else %>
+                  <button type="submit" style="background: #27ae60;padding: 15px 40px;border-radius: 5px;border: 2px solid white;" class="btn btn-success submit-button">Valider</button>
+                  <% end %>
+                  <%= link_to 'Annuler', owner_subscriptions_path(@owner), class: 'btn btn-danger button-cancel-card' %>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        <% end %>
+
+    </div>
+  </div>
+</div>
+
+
+
+
+<script type="text/javascript">
+  // All this code taken from Stripe's own examples at:
+  // https://stripe.com/docs/tutorials/forms .
+
+  function stripeResponseHandler(status, response) {
+    if (response.error) {
+          // show the errors on the form
+          $(".payment-errors").text(response.error.message).show();
+          $(".submit-button").removeAttr("disabled");
+        } else {
+          var form$ = $("#payment-form");
+          // token contains id, last4, and card type
+          // insert the token into the form so it gets submitted to the server
+          form$.append("<input type='hidden' name='subscription[credit_card_token]' value='" + response['id'] + "'/>");
+          form$.append("<input type='hidden' name='subscription[last_four]' value='" + response['last4'] + "'/>");
+          form$.append("<input type='hidden' name='subscription[card_type]' value='" + response['card_type'] + "'/>");
+          // and submit
+          form$.get(0).submit();
+        }
+      }
+
+    </script>
+
+
+    <% content_for :after_js do %>
+    <script>
+      $(document).ready(function() {
+        Stripe.setPublishableKey("<%= Koudoku.stripe_publishable_key %>");
+
+    // By default, don't show errors.
+    $(".payment-errors").hide()
+
+    $("#payment-form").submit(function(event) {
+      // disable the submit button to prevent repeated clicks
+      $('.submit-button').attr("disabled", "disabled");
+      Stripe.createToken({
+        number: $('.card-number').val(),
+        cvc: $('.card-cvc').val(),
+        exp_month: $('.card-expiry').val().replace(' / ', ',').split(',')[0],
+        exp_year: $('.card-expiry').val().replace(' / ', ',').split(',')[1]
+      }, stripeResponseHandler);
+      // prevent the form from submitting with the default action
+      return false;
+    });
+    new Card({
+      form: '#payment-form',
+      container: '.card-qr',
+      formSelectors: {
+        numberInput: 'input[name=number]',
+        expiryInput: 'input[name=expiry]',
+        cvcInput: 'input[name=cvv]',
+        nameInput: 'input[name=name]'
+      },
+
+      width: 350, // optional — default 350px
+      formatting: true,
+
+      placeholders: {
+        number: '•••• •••• •••• ••••',
+        name: '<%= current_user.lastname + ' ' + current_user.firstname %>',
+        expiry: '••/••',
+        cvc: '•••'
+      }
+    })
+  });
+
+</script>
+<% end %>
+

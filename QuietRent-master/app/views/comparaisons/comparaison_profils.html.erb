@@ -1,0 +1,155 @@
+<div class="container">
+  <%= render 'shared/menu_tasks' %>
+  <div class="col-xs-9 text-center" style="padding-bottom: 20px;">
+  <h2 class="text-center subtitle-plans" style="margin: 50px 10px;"><span class="inside-subtitle">Comparaison de profils</span></h2>
+    <%= simple_form_for @comparaison, remote: true do |f| %>
+    <%= f.error_notification %>
+    <div class="col-xs-4">
+      <h4 style="text-transform: uppercase;margin-bottom:2em;">Premier profil</h4>
+      <div style="display: flex;align-items: baseline;flex-direction: row;">
+        <div class="col-xs-12">
+          <%= f.input :edp_loyerf, label: false, :placeholder => 'Loyer ( tout compris )', required: true, autofocus: true, input_html: { class: 'input-edp-place' }%>
+          <span style="right: 0px;" class="input-group-addon euro-edp-input">€</span>
+        </div>
+      </div>
+      <div style="display: flex;align-items: baseline;flex-direction: row;">
+        <div class="col-xs-12">
+          <%= f.input :edp_revenus_mensuelsf, label: false, :placeholder => 'Revenus mensuels', required: true, autofocus: true, input_html: { class: 'input-edp-place' }%>
+          <span style="right: 0px;" class="input-group-addon euro-edp-input">€</span>
+        </div>
+      </div>
+      <div style="display: flex;align-items: baseline;flex-direction: row;">
+        <div class="col-xs-12">
+          <%= f.input :edp_situation_familialef, :as => :grouped_select, :collection => { 'Choisissez...'=> ['Seul', 'Couple sans enfant', 'Couple avec enfant', 'Famille monoparentale'] }, :group_method => :last, label: false, :prompt => "Situation familiale",
+          required: true, autofocus: true, input_html: { class: 'input-edp-place' }%>
+        </div>
+      </div>
+      <div style="display: flex;align-items: baseline;flex-direction: row;">
+        <div class="col-xs-12">
+          <%= f.input :edp_contrat_travailf, :as => :grouped_select, :collection => { 'Choisissez...'=> ['CDI', 'CDD de plus de 8 mois', 'Retraité', 'Sans emploi', 'Indépendant (professions libérales, auto-entrepreneur, etc...)', 'Contrat précaire (étudiant, saisonnier, interim, mi-temps, etc...)'] }, :group_method => :last, label: false, :prompt => "Situation professionnelle", required: true, autofocus: true, input_html: { class: 'input-edp-place' }%>
+        </div>
+      </div>
+      <div style="display: flex;align-items: baseline;flex-direction: row;">
+        <div class="col-xs-12">
+          <%= f.input :edp_year_birthf, label: false, :placeholder => "Année de naissance", required: true, autofocus: true, input_html: { class: 'input-edp-place' }%>
+        </div>
+      </div>
+      <div style="display: flex;align-items: baseline;flex-direction: row;">
+        <div class="col-xs-12">
+          <%= f.input :edp_cityf, label: false, required: true, autofocus: true, placeholder: "Ville", input_html: { class: 'input-edp-place places-address places-cdp' }%>
+        </div>
+      </div>
+    </div>
+    <div class="col-xs-4">
+    <h4 style="text-transform: uppercase;height: 46px;"></h4>
+      <div style=" display: flex;
+    justify-content: center;height: 46px;align-items: center;margin-bottom: 15px;">
+      <label class="control-label">Loyer</label>
+      </div>
+      <div style=" display: flex;
+    justify-content: center;height: 46px;align-items: center;margin-bottom: 15px;">
+      <label class="control-label">Revenus</label>
+      </div>
+      <div style=" display: flex;
+    justify-content: center;height: 46px;align-items: center;margin-bottom: 15px;">
+      <label class="control-label">Situation familiale</label>
+      </div>
+      <div style=" display: flex;
+    justify-content: center;height: 46px;align-items: center;margin-bottom: 15px;">
+      <label class="control-label">Situation professionnelle</label>
+      </div>
+      <div style=" display: flex;
+    justify-content: center;height: 46px;align-items: center;margin-bottom: 15px;">
+      <label class="control-label">Année de naissance</label>
+      </div>
+      <div style=" display: flex;
+    justify-content: center;height: 46px;align-items: center;margin-bottom: 15px;">
+      <label class="control-label">Ville</label>
+      </div>
+    </div>
+    <div class="col-xs-4">
+      <h4 style="text-transform: uppercase;margin-bottom:2em;">Deuxième profil</h4>
+      <div style="display: flex;align-items: baseline;flex-direction: row;">
+        <div class="col-xs-12">
+          <%= f.input :edp_loyerl, label: false, :placeholder => 'Loyer ( tout compris )', required: true, autofocus: true, input_html: { class: 'input-edp-place' }%>
+          <span style="right: 0px;" class="input-group-addon euro-edp-input">€</span>
+        </div>
+      </div>
+      <div style="display: flex;align-items: baseline;flex-direction: row;">
+        <div class="col-xs-12">
+          <%= f.input :edp_revenus_mensuelsl, label: false, :placeholder => 'Revenus mensuels', required: true, autofocus: true, input_html: { class: 'input-edp-place' }%>
+          <span style="right: 0px;" class="input-group-addon euro-edp-input">€</span>
+        </div>
+      </div>
+      <div style="display: flex;align-items: baseline;flex-direction: row;">
+        <div class="col-xs-12">
+          <%= f.input :edp_situation_familialel, :as => :grouped_select, :collection => { 'Choisissez...'=> ['Seul', 'Couple sans enfant', 'Couple avec enfant', 'Famille monoparentale'] }, :group_method => :last, label: false, :prompt => "Situation familiale",
+          required: true, autofocus: true, input_html: { class: 'input-edp-place' }%>
+        </div>
+      </div>
+      <div style="display: flex;align-items: baseline;flex-direction: row;">
+        <div class="col-xs-12">
+          <%= f.input :edp_contrat_travaill, :as => :grouped_select, :collection => { 'Choisissez...'=> ['CDI', 'CDD de plus de 8 mois', 'Retraité', 'Sans emploi', 'Indépendant (professions libérales, auto-entrepreneur, etc...)', 'Contrat précaire (étudiant, saisonnier, interim, mi-temps, etc...)'] }, :group_method => :last, label: false, :prompt => "Situation professionnelle", required: true, autofocus: true, input_html: { class: 'input-edp-place' }%>
+        </div>
+      </div>
+      <div style="display: flex;align-items: baseline;flex-direction: row;">
+        <div class="col-xs-12">
+          <%= f.input :edp_year_birthl, label: false, :placeholder => "Année de naissance", required: true, autofocus: true, input_html: { class: 'input-edp-place' }%>
+        </div>
+      </div>
+      <div style="display: flex;align-items: baseline;flex-direction: row;">
+        <div class="col-xs-12">
+          <%= f.input :edp_cityl, label: false, required: true, autofocus: true, placeholder: "Ville", input_html: { class: 'input-edp-place places-address places-cdp-2' }%>
+        </div>
+      </div>
+    </div>
+    <div>
+      <%= f.button :submit, 'Comparer', class: 'submit-cdp' %>
+    </div>
+    <% end %>
+
+    <div class="col-xs-12" style="display: flex;justify-content: space-around;">
+      <div class="col-xs-4 result-pctg" id="result_cdp_1"></div>
+      <span class="arrow-down-left"></span>
+      <div class="col-xs-4 result-pctgv"></div>
+      <span class="arrow-down-right"></span>
+      <div class="col-xs-4 result-pctg" id="result_cdp_2"></div>
+    </div>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/places.js/1.4.7/places.min.js"></script>
+
+<script>
+  var placesAutocomplete = places ({
+    container: document.querySelector('.places-cdp'),
+  language: 'fr', // Receives results in German
+  type: 'city',
+  countries: ['fr'],
+  templates: {
+    value: function(suggestion) {
+      return suggestion.name;
+    }
+  }
+});
+  var placesAutocomplete = places ({
+    container: document.querySelector('.places-cdp-2'),
+  language: 'fr', // Receives results in German
+  type: 'city',
+  countries: ['fr'],
+  templates: {
+    value: function(suggestion) {
+      return suggestion.name;
+    }
+  }
+});
+</script>
+
+<% content_for :after_js do %>
+<script>
+  $(document).ready(function() {
+    $('#result_cdp_1').addClass('hidden');
+    $('#result_cdp_2').addClass('hidden');
+  });
+</script>
+<% end %>

@@ -1,0 +1,120 @@
+<div class="container">
+  <%= render 'shared/menu_tasks' %>
+  <div id="interface_pro" class="col-xs-9">
+    <h2 id="nomsocieter"><%= current_user.denomination %>
+    </h2>
+
+    <p id="address_dyn"><%= current_user.address%></p>
+
+    <div class="tabs-qr">
+      <ul class="nav nav-tabs cadre-tabs">
+        <li class="active title-tabs-1">
+          <a data-toggle="tab" href="#identification" style="margin:0;border-top-left-radius: 5px;color:#2D2D2D;">Dashboard</a>
+        </li>
+        <li class="title-tabs">
+          <a data-toggle="tab" href="#synthese" style="margin:0;border-top-right-radius: 5px;color:#2D2D2D;">Synthèse</a>
+        </li>
+      </ul>
+
+      <div class="tab-content">
+        <div id="identification" class="tab-pane fade in active">
+          <div style="padding: 0;margin-top: 1em;">
+            <div class="col-xs-5 left-info-dash">
+            <div class="header-dash">
+              <%= image_tag 'informations-quietrent.svg' %>
+              <div class="compteur-stats compteur-infos-sin">1</div>
+              <span class="span-for-dash">Informations</span>
+            </div>
+              <% if current_user.fiabilites.count > 2 %>
+              <div class="text-in-dashboard"><%= Fiabilite.hausse_baisse_fiabilites(current_user.id)%></div>
+              <% else %>
+              <div class="text-in-dashboard">
+                La fiabilité de votre parc n'a pas évolué.
+                <hr>
+                <% date_user = current_user.created_at.to_date + 30 %>
+                Prochaine mise à jour dans <%= 31 - Date.today.day %> jours.
+              </div>
+              <% end %>
+            </div>
+            <div class="col-xs-5 right-info-dash">
+              <div class="header-dash">
+                <%= image_tag 'locataires-quietrent.svg' %>
+                <div class="compteur-stats compteur-loc"><%= current_user.locataires.count %></div>
+                <span class="span-for-dash">Locataires</span>
+              </div>
+              <% if current_user.locataires.count > 0 %>
+              <div class="text-in-dashboard"><%= Locataire.hausse_baisse_locataires(current_user.id)%></div>
+              <%= link_to locataires_path do %>
+              <button id="locataires_index" class="btn button-dash-go"> Mes locataires</button>
+              <% end %>
+              <% end %>
+            </div>
+            <div class="col-xs-5 col-xs-offset-3 center-info-dash slideDown">
+              <span>Fiabilité</span>
+              <%= image_tag 'fiabilite-quietrent.svg' %>
+              <span style="letter-spacing: -1px;margin-top: 10px;font-size: 34px;"><%= current_user.fiabilite_parc %> %</span>
+            </div>
+            <div class="col-xs-5 left-info-dash">
+              <div class="header-dash">
+                <%= image_tag 'sinistres-quietrent.svg' %>
+                <div class="compteur-stats compteur-infos-sini"><%= current_user.sinistres.count %></div>
+                <span class="span-for-dash">Sinistres</span>
+              </div>
+              <div class="text-in-dashboard"><%= Sinistre.resolution_sinistres(current_user.id)%></div>
+              <%= link_to sinistres_path do %>
+              <button id="sinistres_index" class="btn button-dash-go"> Mes sinistres</button>
+              <% end %>
+            </div>
+            <div class="col-xs-5 right-info-dash">
+              <div class="header-dash">
+                <%= image_tag 'alertes-quietrent.svg' %>
+                <div class="compteur-stats compteur-alertes"><%= Locataire.nombres_alertes(current_user.id) %></div>
+                <span class="span-for-dash">Alertes</span>
+              </div>
+              <% if current_user.locataires.count > 0 %>
+              <div class="text-in-dashboard"><%= Locataire.alerte_important_locataires(current_user.id)%><br /><%= Locataire.alerte_modere_locataires(current_user.id)%></div>
+              <% end %>
+            </div>
+          </div>
+        </div>
+        <div id="synthese" class="tab-pane fade">
+            <div class="sous-titre-user-qr">Fiabilité locative du parc</div>
+            <div class="separateur-user"></div>
+            <div class="col-xs-12">
+              <% l = current_user.fiabilites %>
+              <% m = ["Janvier", "Fevrier", "Mars", "Avril", "Mai", "Juin", "Juillet", "Aout", "Sept", "Oct", "Nov", "Dec"] %>
+              <%= area_chart Hash[(m).zip l.map(&:fiabilite_parc)],{ library: {hAxis:{title: "Durée dans le temps"}, backgroundColor: "transparent", vAxis: {title: "Fiabilité %", viewWindow: {min: 0, max:100}}}} %>
+            </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<% content_for(:after_js) do %>
+<script type="text/javascript">
+  $(document).ready(function () {
+    $( "#chart-1 td:nth-child(2)" ).each(function() {
+  		   this.innerHTML += '%';
+    });
+  var Chartkick = {"language": "fr"};
+    $('#entreprise_index').addClass('entreloc');
+    $.fn.datepicker.defaults.language = 'fr';
+    $('.datepicker').datepicker({
+      format: "dd/mm/yyyy",
+      minViewMode: 1,
+      language: "fr",
+      autoclose: true,
+      todayHighlight: true,
+      startDate: '-2y',
+      endDate: '+1y'
+    });
+    $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
+      var ev = document.createEvent('Event');
+      ev.initEvent('resize', true, true);
+      window.dispatchEvent(ev);
+    });
+  });
+</script>
+<% end %>

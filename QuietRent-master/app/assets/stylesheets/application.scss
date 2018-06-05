@@ -1,0 +1,24 @@
+// Graphical variables
+@import "config/variables";
+@import "config/bootstrap_variables";
+
+// External libraries
+@import "bootstrap-sprockets";
+@import "bootstrap";
+@import "font-awesome-sprockets";
+@import "font-awesome";
+@import "nprogress";
+@import "nprogress-bootstrap";
+// Your CSS
+@import "layout/index";
+@import "layout/fonts";
+@import "components/index";
+@import "components/sign";
+@import "pages/index";
+@import "vendor/index";
+@import "users/edit";
+@import "import-loc/import";
+@import "users/show";
+@import "users/locataires";
+@import "bootstrap-datepicker";
+@import "koudoku/pricing-table";

@@ -1,0 +1,26 @@
+<% if @results.empty? %>
+<p>Veuillez entrer un prénom ou un nom de locataire valide</p>
+<% else %>
+<div class="advice text-center" style="margin-bottom: 20px;"><span style="color: #333341;border-bottom: 3px solid #F18132;padding: 5px;">Selectionner un locataire</span></div>
+<% @results.order('lastname ASC').each do |result| %>
+<%= link_to result, remote: true  do %>
+<div class="results-locataires">
+    <div class="pull-left" style="margin-right: 10px;">
+        <b style="text-transform: capitalize;line-height: 60px;white-space: nowrap;"><%= result.lastname.capitalize %>
+            <%= result.firstname.capitalize %></b>
+    </div>
+    <% unless result.fiabilite_pers.nil? %>
+    <% if result.fiabilite_pers >= 80 %>
+      <div class="fiabilite_pers greenf pull-right">
+    <% elsif result.fiabilite_pers < 80 && result.fiabilite_pers > 50 %>
+      <div class="fiabilite_pers yellowf pull-right">
+    <% else %>
+      <div class="fiabilite_pers redf pull-right">
+    <% end %>
+      <%= result.fiabilite_pers %>%
+      </div>
+      <% end %>
+</div>
+    <% end %>
+  <% end %>
+<% end %>

@@ -1,0 +1,64 @@
+<div class="container">
+    <%= render 'shared/menu_tasks' %>
+  <div class="col-xs-9" style="margin-top: 22px;">
+    <h3 class="text-center" style="margin-bottom: 20px;font-weight: 200;">Résolution amiable concernant <b><%= @sinistre.locataire.firstname + ' ' + @sinistre.locataire.lastname %></b></h3>
+    <h4 class="text-center" style="font-weight: 200">Les détails de ma proposition</h4>
+    <%= simple_form_for @resolution do |f| %>
+    <div class="col-xs-6">
+      <i class="fa fa-gavel icon-resolution-qr" aria-hidden="true"></i>
+      <%= f.input :motif_prejudice, label: false, input_html: { class: 'input-resolution', value: @sinistre.category } %>
+      <i class="fa fa-money icon-resolution-qr" aria-hidden="true"></i>
+      <%= f.input :montant_prejudice, label: false, placeholder: 'Montant du préjudice en €(*)', input_html: { class: 'input-resolution' } %>
+      <span class="input-resolution-euro">€</span>
+      <i class="fa fa-money icon-resolution-qr" aria-hidden="true"></i>
+      <%= f.input :montant_reduction, label: false, placeholder: 'Montant de la réduction en €(*)', input_html: { class: 'input-resolution' } %>
+        <span class="input-resolution-euro" style="top: 61px;">€</span>
+      </div>
+      <div class="col-xs-6">
+      <i class="fa fa-clock-o icon-resolution-qr" aria-hidden="true"></i>
+      <%= f.input :paiement_sur, collection: ["3 Mois","6 Mois","9 Mois","12 Mois","18 Mois","24 Mois"], label: false, prompt: 'Paiement echelonné sur(*)', input_html: { class: 'input-resolution' } %>
+      <i class="fa fa-calendar icon-resolution-qr" aria-hidden="true"></i>
+      <%= f.input :paiement_le, as: :string, label: false, placeholder: 'Premier paiement souhaité le(*)', input_html: { class: 'input-resolution datepicker' } %>
+      <i class="fa fa-sort-numeric-asc icon-resolution-qr" aria-hidden="true"></i>
+      <%= f.input :nombre_paiement, label: false, placeholder: 'Nombre de paiements(*)', input_html: { class: 'input-resolution' } %>
+      </div>
+      <div class="col-xs-12">
+      <i class="fa fa-comments icon-resolution-qr" aria-hidden="true"></i>
+      <%= f.input :description, label: false, placeholder: 'Explications supplémentaires, détails, disponibilités... Exprimez-vous(*)', input_html: { class: 'input-resolution' } %>
+      </div>
+      <input type="hidden" name="resolution[locataire_id]" value="<%= params[:locataire_id] %>">
+      <input type="hidden" name="resolution[sinistre_id]" value="<%= params[:id] %>">
+      <div class="text-center">
+      <%= f.submit "Valider et envoyer ma proposition", class: 'submit-resolution' %>
+      </div>
+    <% end %>
+  </div>
+</div>
+
+<% content_for(:after_js) do %>
+<script type="text/javascript">
+  $(document).ready(function () {
+$('.datepicker').datepicker({
+      format: "dd/mm/yyyy",
+      language: "fr",
+      autoclose: true,
+      todayHighlight: true,
+      startDate: '-2y',
+      endDate: '+1y'
+    });
+ });
+</script>
+<% end %>
+
+
+<% content_for(:after_js) do %>
+<script type="text/javascript">
+  $(document).ready(function () {
+    $('#resolutions_index').addClass('base_locentre')
+  });
+</script>
+<% end %>
+
+
+
+

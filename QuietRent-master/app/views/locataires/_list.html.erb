@@ -1,0 +1,49 @@
+<div id="filterrific_results">
+
+  <div class="inside-filters"><%= page_entries_info locataires %></div>
+  <div class="table-responsive">
+  <table class="table table-bordered">
+    <thead>
+      <tr>
+        <th class="text-center">Nom</th>
+        <th class="text-center">Prénom</th>
+        <th class="text-center">Code postal</th>
+        <th class="text-center">Ville</th>
+        <th class="text-center">Loyer</th>
+        <th class="text-center">Revenus</th>
+        <th class="text-center">Fiabilité</th>
+        <th class="text-center">Nbr sinistralité</th>
+        <th class="text-center">Aperçu</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <% locataires.order('fiabilite_pers ASC').each do |locataire| %>
+      <% if locataire.fiabilite_pers > 80 %>
+      <tr class="success" id="before-other-td">
+        <% elsif locataire.fiabilite_pers < 50 %>
+        <tr class="danger" id="before-other-td">
+        <% else %>
+          <tr class="warning" id="before-other-td">
+            <% end %>
+            <td class="text-center" style="text-transform: capitalize"><%= locataire.lastname.capitalize %></td>
+            <td class="text-center" style="text-transform: capitalize"><%= locataire.firstname.capitalize %></td>
+            <td class="text-center"><%= locataire.zip_code %></td>
+            <td class="text-center" style="text-transform: capitalize"><%= locataire.city.capitalize %></td>
+            <td class="text-center"><%= locataire.montant_loyer %>€</td>
+            <td class="text-center"><%= locataire.revenus %>€</td>
+            <td class="text-center"><%= locataire.fiabilite_pers %>%</td>
+            <td class="text-center"><%= locataire.sinistres.count %></td>
+            <td style="width: 12%;"><%= link_to locataire_path(locataire), class: 'text-center button-voire-index' do %>
+              Fiche <i class="fa fa-arrow-circle-o-right" aria-hidden="true"></i>
+              <% end %>
+            </td>
+          </tr>
+          <% end %>
+        </tbody>
+      </table>
+      </div>
+      <div class="text-center">
+      <%= will_paginate locataires, param_name: "page", previous_label: "← Précedent", next_label: "Suivant →", renderer: BootstrapPagination::Rails %>
+      </div>
+    </div>

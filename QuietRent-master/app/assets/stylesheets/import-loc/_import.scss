@@ -1,0 +1,86 @@
+.pourcent_upload {
+  background: #ffffff;
+  border: none;
+  cursor:default!important;
+  pointer-events: none;
+}
+.pourcent_upload:active {
+  background: #f1f1f1;
+  border: none;
+  cursor:default!important;
+  box-shadow:none;
+}
+.pourcent_upload:focus {
+  background: #f1f1f1;
+  border: none;
+  cursor:default!important;
+}
+.pourcent_upload:hover {
+  display:none;
+  background: #f1f1f1;
+  border: none;
+  cursor:default!important;
+  box-shadow:none;
+}
+
+.info-import-loc {
+      background: #f1f1f1;
+      padding: 15px;
+      border-radius: 5px;
+      margin-bottom: 2em;
+      margin-top: -1em;
+}
+
+.separateur-import {
+    margin-top: 15px;
+    margin-bottom: 20px;
+    margin-left: 20px;
+    border-top: 1px solid #b8b8b8;
+    width: 65vw;
+    display: table-caption;
+    }
+.box-import {
+    background: white;
+    height: calc(100vh - 110px);
+    margin-top: 20px;
+    border-radius: 10px;
+    padding-bottom: 35px;
+}
+
+.sous-titre-qr-import {
+      margin-top: 1.5em;
+      color: #F18132;
+      margin-left: 20px;
+      font-weight: 400;
+}
+
+.input-import {
+  display: inline!important;
+  margin-left: 1em;
+}
+
+ul {
+  list-style: none!important;
+}
+
+a:hover {
+  color: #F18132;
+}
+
+.button-download-xlsx {
+  border-radius: 50px;
+  background: #f1f1f1;
+}
+
+.button-confirmation-input {
+  border-radius: 50px;
+  background: #1DB954;
+}
+
+.white-text {
+  color: #fff
+}
+
+.white-text:hover {
+  color: #f1f1f1;
+}

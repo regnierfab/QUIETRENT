@@ -1,0 +1,85 @@
+<div style="margin-left: 50px;margin-right: 50px">
+  <div class="col-xs-2" style="margin-top: -10px;">
+    <div class="cadre_locataires">
+      <button class="btn_search_locataire">
+        Rechercher un locataire<i class="fa fa-search" style="position: absolute;right: 49px;" aria-hidden="true"></i>
+      </button>
+      <div id="form-show">
+        <%= form_tag user_path(current_user), remote: true, method: 'get', class: 'form-search-full' do %>
+        <%= text_field_tag :search, params[:search], class: 'text-search-show' %>
+        <%= submit_tag "Chercher", :name => nil, class: 'text-search-btn', id: 'search-profile' %>
+        <% end %>
+
+      </div>
+    </div>
+    <button type="button" class="btn_test_profil flex-show" data-toggle="modal" data-target="#myModal">
+      <span style="width: 100%;white-space: normal;">Tester un profil</span>
+      <i class="fa fa-id-card-o" aria-hidden="true"></i>
+    </button>
+    <%= render 'shared/modal-edp' %>
+    <%= render 'shared/result_modal' %>
+    <button type="button" class="btn_add_locataire flex-show" data-toggle="modal" data-target="#modal-locataire">
+      <span style="width: 100%;white-space: normal;">Ajouter un locataire</span>
+      <i class="fa fa-user-plus" aria-hidden="true"></i>
+    </button>
+    <%= render 'shared/modal_addloc' %>
+    <%= link_to informations_import_locataires_path do %>
+    <button type="button" class="btn-import-donnees flex-show">
+      <span style="width: 100%;white-space: normal;">Importer mes données</span>
+      <i class="fa fa-upload" style="color: white;" aria-hidden="true"></i>
+    </button>
+    <% end %>
+      <%= link_to mise_a_jour_sinistres_path do %>
+    <button type="button" id="maj-loc" class="btn_maj_sinistre flex-show">
+      <span style="width: 100%;white-space: normal;">Ajouter un sinistre</span>
+      <i class="fa fa-check" aria-hidden="true"></i>
+    </button>
+    <% end %>
+    <button class="btn_modify_profil flex-show">
+      <span style="width: 100%;white-space: normal;">
+      <%= link_to "Modifier mon profil", edit_user_registration_path, class: 'black-color align-left-btn' %>
+      </span>
+      <i class="fa fa-pencil" aria-hidden="true"></i>
+    </button>
+    <div id="results_locataires_show"></div>
+  </div>
+  <div style="overflow:auto;width:82%;margin-top:2.5em">
+  <table class="table table-bordered" style="background: white;">
+    <thead>
+      <tr style="background: #D8D8D8;">
+        <th class="text-center th-gdp">Dénomination</th>
+        <th class="text-center th-gdp">Nombre de locataires</th>
+        <th class="text-center th-gdp">Nombre de sinistres</th>
+        <th class="text-center th-gdp">Fiabilité du parc</th>
+        <th class="text-center" style="vertical-align: middle;border-top: 1px solid #979797;border-bottom: 1px solid #979797;">Évolution fiabilité</th>
+      </tr>
+    </thead>
+
+    <tbody>
+          <% current_user.visitor.each do |vis| %>
+          <% firstchild = User.where(email: vis) %>
+          <% firstchild.each do |l| %>
+          <tr id="before-td-gdp">
+          <td class="text-center" style="width: 20%"><b><%= l.denomination %></b></td>
+          <td style="width: 15%"><span class="inside-td-gdp"><%= l.locataires.count %><span><%= User.hausse_baisse_locataires(l.id) %></span></span></td>
+          <td style="width: 15%"><span class="inside-td-gdp"><%= l.sinistres.count %><span><%= User.hausse_sinistres(l.id) %></span></span></td>
+          <td style="width: 15%"><span class="inside-td-gdp"><%= l.fiabilite_parc %>%<span><%= User.up_down(l.id) %></span></span></td>
+          <td style="width: 35%">
+            <% o = l.fiabilites %>
+            <%= area_chart Hash[(0..o.count).zip o.map(&:fiabilite_parc)],{ library: {backgroundColor: "transparent", vAxis: {viewWindow: {min: 0, max:100}}}} %>
+          </td>
+          <% end %>
+          </tr>
+      <% end %>
+    </tbody>
+  </table>
+  </div>
+</div>
+
+<% content_for(:after_js) do %>
+<script type="text/javascript">
+  $(document).ready(function () {
+    $('#gestion_parc_index').addClass('entreloc');
+  });
+</script>
+<% end %>

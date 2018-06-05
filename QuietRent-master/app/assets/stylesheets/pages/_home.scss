@@ -1,0 +1,68 @@
+/* -------------------------------------
+ * CSS code specific to home page
+ * (margin/padding adjustments)
+ * ------------------------------------- */
+
+
+body {
+  background: #f1f1f1;
+  font-family: dosis;
+  letter-spacing: 0.5px;
+
+}
+
+.separateur {
+    margin-top: 15px;
+    margin-bottom: 60px;
+    margin-left: 20px;
+    border-top: 1px solid #b8b8b8;
+    width: 65vw;
+    display: table-caption;
+}
+.box {
+
+    background: white;
+    height: 32em;
+    margin-top: 20px;
+    border-radius: 10px;
+}
+
+.add-company {
+      margin-bottom: 45px;
+      color: #F18132;
+      font-weight: 300;
+      font-size: 24px;
+}
+
+.sous-titre-qr {
+    color: #F18132;
+    margin-left: 20px;
+    font-weight: 400;
+    margin-bottom: 40px;
+}
+
+.siret {
+    height: 46px;
+    border-radius: 5px;
+    border-style: groove;
+    text-indent: 12px;
+}
+.aide-input {
+    display: inline;
+    margin-left: 10px;
+}
+
+.valider {
+  width: 200px;
+  background: #62AC5C;
+  border-radius: 50px;
+  border: none;
+}
+
+.valider-center {
+  margin-top: 3em;
+}
+
+.mon_dashboard {
+  color: #fff;
+}

@@ -1,0 +1,64 @@
+source 'https://rubygems.org'
+ruby '2.3.1'
+
+gem 'rails', '5.0.0.1'
+gem 'puma'
+gem 'pg'
+gem 'figaro'
+gem 'jbuilder', '~> 2.0'
+gem 'devise', '~> 4.3'
+gem 'redis'
+gem 'cloudinary'
+gem "attachinary"
+gem "jquery-fileupload-rails"
+gem "coffee-rails"
+gem "roo", "~> 2.7.0"
+gem 'rails-assets-bootstrap-datepicker', source: 'https://rails-assets.org'
+gem 'pg_search'
+gem 'gibbon'
+gem 'jsobfu'
+gem 'rails-assets-justgage-official', source: 'https://rails-assets.org'
+gem 'rails-assets-raphael', source: 'https://rails-assets.org'
+gem 'groupdate'
+gem "chartkick"
+gem 'faker'
+gem 'forest_liana'
+gem 'httparty'
+gem "pundit"
+gem "simple_token_authentication"
+gem 'jwt'
+gem 'nprogress-rails'
+gem 'filterrific'
+gem 'friendly_id'
+gem 'will_paginate'
+gem 'will_paginate-bootstrap'
+gem 'pgreset'
+gem 'wicked_pdf'
+gem 'wkhtmltopdf-binary'
+gem 'postmark'
+gem 'postmark-rails'
+gem 'koudoku'
+
+
+
+
+
+gem 'sass-rails'
+gem 'jquery-rails'
+gem 'uglifier'
+gem 'bootstrap-sass'
+gem 'font-awesome-sass'
+gem 'simple_form'
+gem 'autoprefixer-rails'
+
+group :development, :test do
+  gem 'binding_of_caller'
+  gem 'meta_request'
+  gem 'better_errors'
+  gem "letter_opener"
+  gem 'pry-byebug'
+  gem 'pry-rails'
+  gem 'spring'
+  gem 'listen', '~> 3.0.5'
+  gem 'spring-watcher-listen', '~> 2.0.0'
+end

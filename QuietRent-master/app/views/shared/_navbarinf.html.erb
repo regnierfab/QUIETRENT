@@ -1,0 +1,99 @@
+<div class="navbar-wagon">
+  <!-- Logo -->
+  <div class="logo-pro-qr">
+    <%= link_to user_path(current_user), class: "" do %>
+    <%= image_tag "4eea72_ad48e7ac89df4fd9980a58ddd7c0bf3f-mv2.png", class: 'emoti-logo-qr' %>
+
+    <span style="margin-right: 3px;margin-left: 7px;font-style: normal;font-weight: 400;color: #A0A09F;letter-spacing: normal;font-size: 26px;font-family: avenir;">QuietRent</span>
+    <span style="font-style: italic;color: #F06807;font-size: 26px;">pro</span>
+    <% end %>
+  </div>
+  <div class="col-xs-9 all-links-nav hidden-sm hidden-xs" style="white-space: nowrap;">
+    <% if user_signed_in? %>
+    <%= link_to user_path(current_user), class: 'section-flex-nav' do %>
+    <button id="entreprise_index" class="btn base_entreloc">
+      <i class="fa fa-building" aria-hidden="true"></i>
+      ENTREPRISE</button>
+    <% end %>
+    <%= link_to locataires_path, class: 'section-flex-nav' do %>
+    <button id="locataires_index" class="btn base_entreloc">
+      <i class="fa fa-users" aria-hidden="true"></i>
+      LOCATAIRES</button>
+    <% end %>
+    <%= link_to sinistres_path, class: 'section-flex-nav' do %>
+    <button id="sinistres_index" class="btn base_entreloc">
+      <i class="fa fa-exclamation-circle" aria-hidden="true"></i>
+      SINISTRES</button>
+    <% end %>
+    <%= link_to resolutions_path, class: 'section-flex-nav' do %>
+    <button id="resolutions_index" class="btn base_entreloc">
+      <i class="fa fa-handshake-o" aria-hidden="true"></i>
+      RESOLUTIONS</button>
+    <% end %>
+    <% if current_user.admin? %>
+    <%= link_to gestion_des_parcs_path, class: 'section-flex-nav-gdp' do %>
+    <button id="gestion_parc_index" class="btn base_apresloc">
+      <i class="fa fa-area-chart" aria-hidden="true"></i>
+      GESTION DES PARCS</button>
+    <% end %>
+    <% end %>
+  <% else %>
+    <button class="btn entreloc">
+      <i class="fa fa-building" aria-hidden="true"></i>
+      ENTREPRISE</button>
+    <% end %>
+
+
+  <%= link_to destroy_user_session_path, method: :delete, class: 'button-signout section-flex-nav' do %>
+  <i class="fa fa-sign-out"></i>
+  <%= t(".sign_out", default: "Se déconnecter") %>
+  <% end %>
+  </div>
+  <!-- mobile only -->
+  <div class="navbar-wagon-item hidden-md hidden-lg">
+    <div class="dropdown">
+      <i class="fa fa-bars dropdown-toggle" data-toggle="dropdown"></i>
+      <ul class="dropdown-menu dropdown-menu-right navbar-wagon-dropdown-menu" style="margin-left: -90px;width: 182px;">
+        <li>
+          <%= link_to user_path(current_user) do %>
+          <i class="fa fa-building" aria-hidden="true"></i>
+          Mon dashboard
+          <% end %>
+        </li>
+        <li>
+          <%= link_to locataires_path do %>
+          <i class="fa fa-users" aria-hidden="true"></i>
+          Mes locataires
+          <% end %>
+        </li>
+        <li>
+          <%= link_to sinistres_path do %>
+          <i class="fa fa-exclamation-circle" aria-hidden="true"></i>
+          Mes sinistres
+          <% end %>
+        </li>
+        <li>
+          <%= link_to resolutions_path do %>
+          <i class="fa fa-handshake-o" aria-hidden="true"></i>
+          Mes résolutions
+          <% end %>
+        </li>
+        <li>
+          <% if current_user.admin? %>
+            <%= link_to gestion_des_parcs_path do %>
+            <i class="fa fa-area-chart" aria-hidden="true"></i>
+            Gestion des parcs
+          <% end %>
+          <% end %>
+        </li>
+        <li>
+          <%= link_to destroy_user_session_path, method: :delete do %>
+          <i class="fa fa-sign-out"></i>
+            Se déconnecter
+            <% end %>
+        </li>
+      </ul>
+    </div>
+  </div>
+
+</div>

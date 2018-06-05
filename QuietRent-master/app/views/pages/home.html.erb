@@ -1,0 +1,22 @@
+<div class="banner" style="background-image: url('<%= image_path "background2.png" %>');">
+
+<div class="container">
+  <div class="row">
+  <div class="col-xs-12">
+  <div class="banner-content">
+    <h1 style="font-size:5em;font-weight:bold;">Réduire le risque Locatif</h1>
+    <h4 style="font-size:1.5em;margin-top:1em;">Algorithmes & Big Data : notre expertise en scoring.</h4>
+    <% if user_signed_in? and current_user.subscription.try(:plan) != nil %>
+    <button type="button" class="button-home"><%= link_to "Mon dashboard", user_path(current_user), class: 'mon_dashboard' %></button>
+    <% elsif user_signed_in? and current_user.role == "Locataire" %>
+      <button type="button" class="button-home"><%= link_to "Espace locataire", espace_locataire_path, class: 'mon_dashboard' %>
+      </button>
+    <% else %>
+    <button type="button" class="button-home"><%= link_to 'Tester la solution', main_app.pricing_path, class: 'mon_dashboard' %></div>
+    <% end %>
+  </div>
+
+  </div>
+  </div>
+</div>
+</div>

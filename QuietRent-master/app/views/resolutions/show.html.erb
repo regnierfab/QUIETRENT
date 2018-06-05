@@ -1,0 +1,77 @@
+<div class="container">
+  <%= render 'shared/menu_tasks' %>
+  <div class="col-xs-9" style="margin-top: 22px;">
+  <h3 class="text-center" style="margin-bottom: 20px;font-weight: 200;">Récapitulatif de ma proposition concernant <b><%= @resolution.locataire.firstname + ' ' + @resolution.locataire.lastname %></b></h3>
+    <h4 class="text-center" style="font-weight: 200">Les détails de ma proposition</h4>
+    <div style="margin-top: 3em;">
+      <div class="col-xs-6" style="line-height: 25px;">
+        <div>
+          <h5 class="resolution-h5">Information locataire :</h5>
+          <div class="resolution-infos-title">
+            Prénom & Nom : <span class="resolution-infos"><%= @resolution.locataire.firstname + ' ' + @resolution.locataire.lastname %></span>
+          </div>
+          <div class="resolution-infos-title">
+            Email : <span class="resolution-infos"><%= @resolution.locataire.email %></span>
+          </div>
+        </div>
+        <div>
+          <h5 class="resolution-h5">Préjudice :</h5>
+          <div class="resolution-infos-title">
+            Nature du préjudice : <span class="resolution-infos"><%= @resolution.motif_prejudice %></span>
+          </div>
+          <div class="resolution-infos-title">
+            Montant du préjudice : <span class="resolution-infos"><%= @resolution.montant_prejudice %>.00€</span>
+          </div>
+        </div>
+      </div>
+      <div class="col-xs-6" style="text-align:right;line-height: 25px;">
+        <div>
+          <h5 class="resolution-h5">Ma proposition financière : </h5>
+          <div class="resolution-infos-title">
+            Réduction accordée : <span class="resolution-infos"><%= @resolution.montant_reduction %>.00€</span>
+          </div>
+          <div class="resolution-infos-title">
+            Montant restant à payer : <span class="resolution-infos"><%= @resolution.montant_prejudice.to_i - @resolution.montant_reduction.to_i %>.00€</span>
+          </div>
+          <div class="resolution-infos-title">
+            Date de début de paiement : <span class="resolution-infos"><%= @resolution.paiement_le.strftime('%e %b %Y') %></span>
+          </div>
+          <div class="resolution-infos-title">
+            Échelonnement du paiement sur : <span class="resolution-infos"><%= @resolution.paiement_sur %></span>
+          </div>
+          <div class="resolution-infos-title">
+            Nombre de paiements : <span class="resolution-infos"><%= @resolution.nombre_paiement %></span>
+          </div>
+        </div>
+      </div>
+      <div class="col-xs-12 text-center">
+        <div>
+          <h5 class="resolution-h5">Mon commentaire :</h5>
+          <p class="description_resolution"><%= @resolution.description %></p>
+        </div>
+      </div>
+    </div>
+    <div class="col-xs-12 buttons-resolution">
+    <div style="text-align: center;margin-bottom: 3em;">
+        <%= link_to "Retour", :back, { class: 'link_resolution', style: 'padding-left: 4.4em;padding-right: 4.4em;'} %>
+      </div>
+    <div style="margin-bottom: 3em;">
+        <%= link_to "Refaire une proposition", locataire_sinistre_path(@resolution.locataire, @resolution.sinistre), class: 'link_resolution' %>
+      </div>
+      <% if @resolution.status != nil %>
+      <div style="margin-bottom: 3em;">
+        <%= link_to "Télecharger le PDF", "/resolutions/#{@resolution.id}.pdf", { class: 'link_resolution', style: 'padding-left: 2em;padding-right: 1.3em;' } %>
+      </div>
+      <% end %>
+    </div>
+  </div>
+</div>
+
+<% content_for(:after_js) do %>
+<script type="text/javascript">
+  $(document).ready(function () {
+    $('#resolutions_index').addClass('base_locentre')
+  });
+</script>
+<% end %>
+

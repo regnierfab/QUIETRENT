@@ -1,0 +1,37 @@
+<%= simple_form_for(@locataire) do |f| %>
+  <%= f.error_notification %>
+
+  <div class="form-inputs">
+  <h2 class="text-center">Editer votre locataire</h2>
+    <div class="border-orange-origin"></div>
+    <p class="text-center">Modification des informations personnelles</p>
+    <label class="control-label">Nom</label>
+    <%= f.input :lastname, label: false %>
+    <label class="control-label">Prénom</label>
+    <%= f.input :firstname, label: false %>
+    <label class="control-label">Email</label>
+    <%= f.input :email, label: false %>
+    <label class="control-label">Rue</label>
+    <%= f.input :street, label: false %>
+    <label class="control-label">Code Postal</label>
+    <%= f.input :zip_code, label: false %>
+    <label class="control-label">Ville</label>
+    <%= f.input :city, label: false %>
+    <label class="control-label">Montant du loyer</label>
+    <%= f.input :montant_loyer, label: false %>
+    <label class="control-label">Revenus</label>
+    <%= f.input :revenus, label: false %>
+    <label class="control-label">Situation professionnelle</label>
+    <%= f.input :situation_pro, :as => :grouped_select, :collection => { 'Choisissez...'=> ['CDI', 'CDD de plus de 8 mois', 'Retraité', 'Sans emploi', 'Indépendant (professions libérales, auto-entrepreneur, etc...)', 'Contrat précaire (étudiant, saisonnier, interim, mi-temps, etc...)'] }, :group_method => :last, label: false, :prompt => "Contrat de travail", required: true, input_html: { class: 'input-addloc' }%>
+    <label class="control-label">Situation familiale</label>
+    <%= f.input :situation_fam, :as => :grouped_select, :collection => { 'Choisissez...'=> ['Seul', 'Couple sans enfant', 'Couple avec enfant', 'Famille monoparentale'] }, :group_method => :last, label: false, :prompt =>
+    "Situation familiale", required: true, input_html: { class: 'input-addloc' }%>
+    <label class="control-label">Année de naissance</label>
+    <%= f.input :age_birth, label: false %>
+  </div>
+
+  <div class="form-actions" style="height: 3em;margin-top: 2em;">
+    <%= f.button :submit, "Mettre à jour", {:style=>'float:right;'} %>
+    <%= link_to 'Retour', locataire_path(@locataire), class: 'btn btn-default', style: 'float:left' %>
+  </div>
+<% end %>

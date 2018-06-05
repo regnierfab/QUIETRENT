@@ -1,0 +1,21 @@
+<%- if controller_name != 'sessions' %>
+  <div class="btn btn-info"><%= link_to "Se connecter", new_session_path(resource_name), class: 'linkaccount' %></div><br />
+<% end -%>
+
+<%- if devise_mapping.registerable? && controller_name != 'registrations' %>
+  <div class="btn btn-success button-signupin"><%= link_to "INSCRIPTION", new_registration_path(resource_name), class: 'linkaccount' %></div><br />
+<% end -%>
+
+<%- if devise_mapping.confirmable? && controller_name != 'confirmations' %>
+  <%= link_to "Vous n'avez pas reçu la confirmation d'instruction?", new_confirmation_path(resource_name) %><br />
+<% end -%>
+
+<%- if devise_mapping.lockable? && resource_class.unlock_strategy_enabled?(:email) && controller_name != 'unlocks' %>
+  <%= link_to "Vous n'avez pas reçu les instructions de déblocage?", new_unlock_path(resource_name) %><br />
+<% end -%>
+
+<%- if devise_mapping.omniauthable? %>
+  <%- resource_class.omniauth_providers.each do |provider| %>
+    <%= link_to "Sign in with #{OmniAuth::Utils.camelize(provider)}", omniauth_authorize_path(resource_name, provider) %><br />
+  <% end -%>
+<% end -%>

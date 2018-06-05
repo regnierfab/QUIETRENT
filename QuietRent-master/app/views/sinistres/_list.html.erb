@@ -1,0 +1,40 @@
+<div id="filterrific_results">
+  <div class="inside-filters">Affichage des sinistres <b><%= sinistres.count %></b> sur <b><%= current_user.sinistres.count %></b> au total</div>
+<table class="table table-bordered">
+  <thead>
+    <tr>
+      <th class="text-center">Nom</th>
+      <th class="text-center">Prénom</th>
+      <th class="text-center">Catégorie</th>
+      <th class="text-center">Date</th>
+      <th class="text-center">Status</th>
+      <th class="text-center">Description</th>
+      <th class="text-center">Résolution Sinistres</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% sinistres.order('start_date ASC').each do |sinistre| %>
+        <% if sinistre.category == "Impayé" %>
+        <tr style="background: #f2dede" id="before-td">
+        <% elsif sinistre.category == "Retard de paiement" %>
+        <tr style="background: #fcf8e3" id="before-td">
+        <% else %>
+        <tr style="background: #dee5f2;" id="before-td">
+        <% end %>
+        <td class="text-center" style="text-transform: capitalize"><%= sinistre.locataire.lastname %></td>
+        <td class="text-center" style="text-transform: capitalize"><%= sinistre.locataire.firstname %></td>
+        <td class="text-center" style="text-transform: capitalize"><%= sinistre.category %></td>
+        <td class="text-center" style="text-transform: capitalize"><%= l(sinistre.start_date, format: '%B %Y', locale: 'fr') %></td>
+        <td class="text-center" style="text-transform: capitalize"><%= sinistre.status %></td>
+        <td class="text-center" style="text-transform: capitalize"><%= sinistre.description %></td>
+        <td class="text-center" style="text-transform: capitalize;width: 25%;">
+          <%= link_to locataire_sinistre_path(sinistre.locataire, sinistre), class: 'button-voire-index' do %>
+            Faire une demande <i class="fa fa-arrow-circle-o-right" aria-hidden="true"></i>
+          <% end %>
+        </td>
+        </tr>
+    <% end %>
+  </tbody>
+</table>
+</div>

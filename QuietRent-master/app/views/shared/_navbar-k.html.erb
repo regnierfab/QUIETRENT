@@ -1,0 +1,63 @@
+<div class="navbar-wagon">
+  <!-- Logo -->
+
+  <div class="logo-pro-qr">
+    <%= link_to main_app.root_path, class: "" do %>
+      <%= image_tag "4eea72_ad48e7ac89df4fd9980a58ddd7c0bf3f-mv2.png", class: 'emoti-logo-qr' %>
+
+    <span style="margin-right: 3px;margin-left: 7px;font-style: normal;font-weight: 400;color: #A0A09F;letter-spacing: normal;font-size: 26px;font-family: avenir;">QuietRent</span>
+    <span style="font-style: italic;color: #F06807;font-size: 26px;">pro</span>
+    <% end %>
+  </div>
+
+  <ul class="navbarq hidden-xs hidden-sm">
+        <li class="link-nav"><%= link_to "Accueil", main_app.root_path, class: "navbar-wagon-link"%></li>
+        <li class="link-nav"><a class="navbar-wagon-link" href="https://www.quietrent-pro.com/services">Solution</a></li>
+        <li class="link-nav"><a class="navbar-wagon-link" href="https://www.quietrent-pro.com/blank-1">Qui somme nous?</a></li>
+        <li class="link-nav"><a class="navbar-wagon-link" href="https://www.quietrent-pro.com/contact">Contact</a></li>
+
+  </ul>
+
+  <div class="navbar-wagon-item hidden-md hidden-lg">
+    <div class="dropdown">
+    <button class="btn dropdown-toggle menu-nav" type="button" data-toggle="dropdown">Menu
+      <span class="caret"></span></button>
+      <ul class="dropdown-menu">
+        <li><%= link_to "Accueil", main_app.root_path, class: "navbar-wagon-link"%></li>
+        <li><a class="navbar-wagon-link" href="https://www.quietrent-pro.com/services">Solution</a></li>
+        <li><a class="navbar-wagon-link" href="https://www.quietrent-pro.com/blank-1">Qui sommes nous?</a></li>
+        <li><a class="navbar-wagon-link" href="https://www.quietrent-pro.com/contact">Contact</a></li>
+        <% if user_signed_in? %>
+        <li>Bienvenue <%= current_user.denomination %></li>
+        <li><%= link_to main_app.destroy_user_session_path, method: :delete, class: 'button-signout' do %>
+            <i class="fa fa-sign-out"></i>  <%= t(".sign_out", default: "Se déconnecter") %>
+          <% end %>
+          </li>
+        <% else %>
+        <li><%= link_to "Connexion", main_app.new_user_session_path, class: 'navbar-wagon-link'%></li>
+        <li><%= link_to "S\'inscrire", main_app.new_user_registration_path, class: 'navbar-wagon-link'%></li>
+        <% end %>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Right Navigation -->
+  <div class="navbar-wagon-right hidden-xs">
+
+
+    <!-- Different navigation if login or not -->
+    <% if user_signed_in? %>
+
+
+      <!-- Profile picture and dropdown -->
+      <div>
+              <%= link_to main_app.destroy_user_session_path, method: :delete, class: 'button-signout' do %>
+                <i class="fa fa-sign-out"></i>  <%= t(".sign_out", default: "Se déconnecter") %>
+              <% end %>
+        </div>
+
+    <% end %>
+
+    <!-- Button (call-to-action) -->
+  </div>
+</div>

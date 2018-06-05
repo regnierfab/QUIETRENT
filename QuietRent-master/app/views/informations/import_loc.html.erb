@@ -1,0 +1,57 @@
+<div class="container">
+    <div class="row">
+        <div class="col-xs-10 col-xs-offset-1 box-import">
+
+            <h3 class="text-center add-company">Ajoutez vos informations...</h3>
+            <div class="text-center info-import-loc">
+                <p>A cette étape, vous allez télécharger un fichier Excel dans lequel vous saisirez les données de vos locataires.</p>
+                <small>
+                    <b>
+                        <i class="fa fa-info-circle" aria-hidden="true"></i>
+                        Toutes les données envoyées sont strictement confidentielles. Elles ne seront en aucun cas diffusées,<br>
+                        vendues ou exploitées à des fins commerciales.</b>
+                </small>
+            </div>
+            <h4 class="sous-titre-qr">Etape 1 : Télécharger le fichier Excel</h4>
+
+            <div class="text-center" style="margin-bottom: 2.5em;display: flex;flex-direction: row;justify-content: center;align-items: center;">
+              <div class="indicate-user">1</div>
+            <%= link_to 'Modèle de l\'import en format excel', informations_download_xlsx_url, class: 'return-to-dash' %>
+            </div>
+            <h4 class="sous-titre-qr" style="margin-top: 1em;">Etape 2 : Compléter le fichier</h4>
+            <div style="margin-left: 20px;">
+                <small class="text-center">
+                    <i class="fa fa-info-circle" aria-hidden="true"></i>
+                    Veuillez bien respecter les informations locataires renseignées, elles pourront être modifiées dans votre espace à partir de chaque fiche locataire.</small>
+            </div>
+            <h4 class="sous-titre-qr-import">Etape 3 : Importer mes fichiers</h4>
+            <div class="col-xs-12" style="margin-top: 2em;margin-bottom: 4em;">
+                <%= form_tag('import_xlsx', multipart: true, class: 'form-input-file') do %>
+                <div class="indicate-user" style="position: relative;bottom: -1px;">2</div>
+                <div class="file-upload">
+                    <%= file_field_tag :xlsx, accept: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' %>
+                    <i class="fa fa-arrow-up" style="font-size: 35px;"></i>
+                </div>
+                <div class="indicate-user" style="position: relative;left: 3.5em;bottom: 1px;">3</div>
+                <%= submit_tag "Envoyer mon fichier", class: 'submit-upload-file return-to-dash' %>
+                <% end %>
+
+                <div class="text-center" style="margin-top: 50px;">
+                  <%= link_to "Ne pas importer mes données", user_path(current_user), class: 'return-to-dashh' %>
+                </div>
+            </div>
+            <!-- <div class="col-xs-12" style="margin-bottom: 2em;">
+                <%= form_tag('import_json', multipart: true, class: 'form-input-file') do %>
+                <div class="indicate-user" style="position: relative;left: -4.4em;bottom: -4.2em;">2</div>
+                <div class="file-upload">
+                    <%= file_field_tag :json, accept: 'application/json' %>
+                    <i class="fa fa-arrow-up" style="font-size: 49px;"></i>
+                </div>
+                <div class="indicate-user" style="position: relative;left: -7.5em;top: 3.1em;">3</div>
+                <%= submit_tag "Importer mon json", class: 'submit-upload-file return-to-dash' %>
+                <% end %>
+            </div> -->
+
+
+        </div>
+    </div>

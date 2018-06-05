@@ -1,0 +1,6 @@
+$('#new_maj').click(function() {
+  $('#locataires2').addClass('hidden')
+  $('#formulaire-sinistre').removeClass('hidden')
+});
+
+$("#flash").html('<%= j render partial: "shared/notice_banner" %>');

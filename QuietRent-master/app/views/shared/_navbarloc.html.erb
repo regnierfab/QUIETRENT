@@ -1,0 +1,35 @@
+<div class="navbar-wagon">
+  <!-- Logo -->
+  <div class="logo-pro-qr">
+      <%= link_to root_path, class: "" do %>
+        <%= image_tag "4eea72_ad48e7ac89df4fd9980a58ddd7c0bf3f-mv2.png", class: 'emoti-logo-qr' %>
+
+      <span style="margin-right: 3px;margin-left: 7px;font-style: normal;font-weight: 400;color: #A0A09F;letter-spacing: normal;font-size: 26px;font-family: avenir;">QuietRent</span>
+      <span style="font-style: italic;color: #F06807;font-size: 26px;">pro</span>
+      <% end %>
+    </div>
+<div class="col-xs-7" style="white-space: nowrap;">
+<% if @user.present? %>
+<%= link_to user_path(@user) do %>
+  <button id="entreprise_index" class="btn entreloc base_entreloc"><i class="fa fa-building" aria-hidden="true"></i> ENTREPRISE</button>
+  <% end %>
+  <%= link_to locataires_path do %>
+  <button id="locataires_index" class="btn locentre"><i class="fa fa-users" aria-hidden="true"></i> LOCATAIRES</button>
+  <% end %>
+  <%= link_to locataire_sinistres_path(current_user), remote: true do %>
+  <button id="sinistres_index" class="btn locentre"><i class="fa fa-exclamation-circle" aria-hidden="true"></i> SINISTRES</button>
+  <% end %>
+  <% else %>
+  <button class="btn entreloc"><i class="fa fa-building" aria-hidden="true"></i> ENTREPRISE</button>
+  <% end %>
+</div>
+  <!-- Right Navigation -->
+  <div class="navbar-wagon-right">
+
+            <div>
+              <%= link_to destroy_user_session_path, method: :delete, class: 'button-signout' do %>
+                <i class="fa fa-sign-out"></i>  <%= t(".sign_out", default: "Se déconnecter") %>
+              <% end %>
+            </div>
+  </div>
+</div>

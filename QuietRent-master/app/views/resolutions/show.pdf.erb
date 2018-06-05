@@ -1,0 +1,74 @@
+<h3 style="text-align: center;">Réponse à la proposition amiable de <%= @resolution.user.firstname.capitalize  + ' ' + @resolution.user.lastname.capitalize %></h3>
+
+<p style="float: right;font-size: 15px;"><em>Le <%= I18n.localize(Date.today, format: '%e %B %Y', locale: 'fr')  %></em></p>
+<br>
+<br>
+<p>
+A ce jour, <span style="font-weight: 900"><%= @resolution.locataire.firstname.capitalize + ' ' + @resolution.locataire.lastname.capitalize %></span>, locataire du logement de <span style="font-weight: 900"><%= @resolution.user.firstname.capitalize  + ' ' + @resolution.user.lastname.capitalize %></span>, à
+<span style="font-weight: 900">
+  <% if @resolution.status == "Résolution acceptée" %>
+    accepté
+  <% elsif @resolution.status == "Résolution refusée" %>
+    refusé
+  <% else %>
+    reçu
+  <% end %>
+</span> la proposition amiable ci-dessous :
+</p>
+
+<div style="margin-top: 2em;border-bottom: 1px dashed #888">
+      <div style="line-height: 25px;">
+        <div>
+          <h5 style="font-size: 19px;color: #F18132;font-family: 'Muli', sans-serif;">Préjudice :</h5>
+          <div style="font-size: 15px;">
+            Nature du préjudice : <span style="font-weight: 900;font-size: 16px;"><%= @resolution.motif_prejudice %></span>
+          </div>
+          <div style="font-size: 15px;">
+            Montant du préjudice : <span style="font-weight: 900;font-size: 16px;"><%= @resolution.montant_prejudice %>.00€</span>
+          </div>
+        </div>
+      </div>
+      <div style="line-height: 25px;">
+        <div>
+          <h5 style="font-size: 19px;color: #F18132;font-family: 'Muli', sans-serif;">Ma proposition financière : </h5>
+          <div style="font-size: 15px;">
+            Réduction accordée : <span style="font-weight: 900;font-size: 16px;"><%= @resolution.montant_reduction %>.00€</span>
+          </div>
+          <div style="font-size: 15px;">
+            Montant restant à payer : <span style="font-weight: 900;font-size: 16px;"><%= @resolution.montant_prejudice.to_i - @resolution.montant_reduction.to_i %>.00€</span>
+          </div>
+          <div style="font-size: 15px;">
+            Date de début de paiement : <span style="font-weight: 900;font-size: 16px;"><%= I18n.localize(@resolution.paiement_le, format: '%e %B %Y', locale: 'fr')  %></span>
+          </div>
+          <div style="font-size: 15px;">
+            Échelonnement du paiement sur : <span style="font-weight: 900;font-size: 16px;"><%= @resolution.paiement_sur %></span>
+          </div>
+          <div style="font-size: 15px;">
+            Nombre de paiements : <span style="font-weight: 900;font-size: 16px;"><%= @resolution.nombre_paiement %></span>
+          </div>
+        </div>
+      </div>
+      <div>
+        <div>
+          <h5 style="font-size: 19px;color: #F18132;font-family: 'Muli', sans-serif;">Mon commentaire :</h5>
+          <p class="description_resolution"><%= @resolution.description %></p>
+        </div>
+      </div>
+    </div>
+    <br>
+
+<% if @resolution.commentaire_loc %>
+Voici le commentaire apporté par <span style="font-weight: 900"><%= @resolution.locataire.firstname.capitalize + ' ' + @resolution.locataire.lastname.capitalize %></span> à cette proposition :
+<br>
+<br>
+Commentaire : <span style="font-weight: 900"><%= @resolution.commentaire_loc %></span>
+<br>
+<% end %>
+<br>
+<br>
+
+<span style="float: right">L’équipe conciliation QuietRent</span>
+
+<style>
+@import url('https://fonts.googleapis.com/css?family=Muli:600|Overpass:400,700,900');
+</style>

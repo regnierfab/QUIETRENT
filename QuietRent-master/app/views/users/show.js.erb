@@ -1,0 +1,21 @@
+$('#results_locataires_show').removeClass('hidden');
+$("#results_locataires_show").html("<%= j render 'shared/results_locataires_show' %>");
+
+$('#locataires').removeClass('hidden');
+$("#locataires").html("<%= j render 'shared/results_locataires' %>");
+
+
+
+
+var a = $('#locataires2')
+if ((a).hasClass("hidden")) {
+   $('#locataires').addClass('col-xs-12');
+} else {
+$('#locataires').addClass('col-xs-6');
+}
+
+
+$('.results-locataires').click(function(){
+  $('#locataires').removeClass('col-xs-12');
+  $('#locataires').addClass('col-xs-5');
+});
