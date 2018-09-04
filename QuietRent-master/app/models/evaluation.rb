@@ -154,6 +154,10 @@ situation_dep =  {
     fiabilite_edp *= 1.05
   end
 
+
+# ici on insere le code en JS si possible
+
+
   self.result_edp =  fiabilite_edp
 end
 end

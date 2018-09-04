@@ -12,9 +12,9 @@
 
   <ul class="navbarq hidden-xs hidden-sm">
         <li class="link-nav"><%= link_to "Accueil", main_app.root_path, class: "navbar-wagon-link"%></li>
-        <li class="link-nav"><a class="navbar-wagon-link" href="https://www.quietrent-pro.com/services">Solution</a></li>
-        <li class="link-nav"><a class="navbar-wagon-link" href="https://www.quietrent-pro.com/blank-1">Qui somme nous?</a></li>
-        <li class="link-nav"><a class="navbar-wagon-link" href="https://www.quietrent-pro.com/contact">Contact</a></li>
+        <li class="link-nav"><a class="navbar-wagon-link" href="https://www.quietrent.com/service">Solution</a></li>
+        <li class="link-nav"><a class="navbar-wagon-link" href="https://www.quietrent.com/about-team">Qui somme nous?</a></li>
+        <li class="link-nav"><a class="navbar-wagon-link" href="https://www.quietrent.com/contact">Contact</a></li>
 
   </ul>
 
@@ -24,9 +24,9 @@
       <span class="caret"></span></button>
       <ul class="dropdown-menu">
         <li><%= link_to "Accueil", main_app.root_path, class: "navbar-wagon-link"%></li>
-        <li><a class="navbar-wagon-link" href="https://www.quietrent-pro.com/services">Solution</a></li>
-        <li><a class="navbar-wagon-link" href="https://www.quietrent-pro.com/blank-1">Qui sommes nous?</a></li>
-        <li><a class="navbar-wagon-link" href="https://www.quietrent-pro.com/contact">Contact</a></li>
+        <li><a class="navbar-wagon-link" href="https://www.quietrent.com/service">Solution</a></li>
+        <li><a class="navbar-wagon-link" href="https://www.quietrent.com/about-team">Qui sommes nous?</a></li>
+        <li><a class="navbar-wagon-link" href="https://www.quietrent.com/contact">Contact</a></li>
         <% if user_signed_in? %>
         <li>Bienvenue <%= current_user.denomination %></li>
         <li><%= link_to main_app.destroy_user_session_path, method: :delete, class: 'button-signout' do %>

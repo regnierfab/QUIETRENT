@@ -188,6 +188,7 @@ class Comparaison < ApplicationRecord
     end
 
 
+
     factor = 0.32
     income_deviation = 0.1
 

@@ -1,7 +1,13 @@
+
+
+
+
   $("button[data-number=1]").click(function(){
     $('#myModal').modal('hide');
   });
   var fiabilite_edp = <%= @evaluation.result_edp %>
+
+
 
   $('#pourcenteval').html("<div id='jg2' class='gauge' style='width:300px; height:200px'></div>");
   var jg2 = new JustGage({
